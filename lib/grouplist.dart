@@ -50,7 +50,7 @@ class _GroupListPageState extends State<GroupListPage> {
                   IconButton(
                       onPressed: () {
                         print("그룹편집버튼클릭");
-                        // Navigator.pushNamed(context, '/');
+                        Navigator.pushNamed(context, '/groupeditform');
                       },
                       icon: Icon(
                         Icons.edit,

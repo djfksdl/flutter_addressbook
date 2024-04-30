@@ -5,6 +5,7 @@ import 'grouplist.dart';
 import 'app.dart';
 import 'persongroupinsert.dart';
 import 'personinsert.dart';
+import 'groupeditform.dart';
 
 
 void main() {
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/bookmarklist':(context)=> BookmarkPage(),
         '/persongroupinsert':(context)=> PersonGroupInsert(),
         '/personinsertform':(context)=> PersonInsertForm(),
+        '/groupeditform':(context) => groupEditForm(),
       }
     );
   }
