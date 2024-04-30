@@ -15,7 +15,7 @@ class BookmarkPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(),
+
       body: CustomScrollView(
         slivers: [
           Container(

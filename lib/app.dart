@@ -23,8 +23,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-        ),
+
         body: _pages[_index],
         bottomNavigationBar: SizedBox(
           height: 100,
