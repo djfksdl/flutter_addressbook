@@ -13,7 +13,6 @@ class _AppState extends State<App> {
 
   var _index = 0;
 
-
   List<Widget> _pages = [
     BookmarkPage(),
     CategoryPage(),

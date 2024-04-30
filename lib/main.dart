@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "/bookmartlist",
+      initialRoute: '/category',
       routes:{
         '/':(context) => App(),
         '/category':(context) => CategoryPage(),
