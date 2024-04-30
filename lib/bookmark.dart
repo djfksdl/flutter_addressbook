@@ -523,31 +523,6 @@ class BookmarkPage extends StatelessWidget {
 
         ],
 
-
-      ),
-      bottomNavigationBar: SizedBox(
-        height: 100,
-        child: BottomNavigationBar(
-          backgroundColor: Color(0xFF0F0E36),
-          selectedItemColor: Color(0xFFFFFC75), // 선택된 아이템의 색상
-          unselectedItemColor: Color(0xFF81D1FB), // 선택되지 않은 아이템의 색상
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.star),
-              label: '즐겨찾기',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.list),
-              label: '연락처',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.people),
-              label: '그룹',
-            ),
-          ],
-          // selectedItemColor: Colors.amber[800],
-          // onTap: _onItemTapped,
-        ),
       ),
     );
   }
