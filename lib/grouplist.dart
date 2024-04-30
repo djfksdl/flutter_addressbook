@@ -67,32 +67,40 @@ class _GroupListPageState extends State<GroupListPage> {
                   width: 430,
                   child: Column(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                                    color: Color(0xFF26295E), width: 1.0))),
-                        margin: EdgeInsets.only(bottom: 20),
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(70),
-                              child: Image.asset(
-                                'assets/images/girl.png',
-                                width: 50,
-                                height: 50,
-                              ),
+                      GestureDetector(
+                        onTap: (){
+                          print("상세페이지이동");
+                          Navigator.pushNamed(context, '/detailpage');
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: Color(0xFF26295E), width: 1.0))),
+                          margin: EdgeInsets.only(bottom: 20),
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Center(
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(70),
+                                  child: Image.asset(
+                                    'assets/images/girl.png',
+                                    width: 50,
+                                    height: 50,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                  child: Text(
+                                    "강나연",
+                                    style: TextStyle(
+                                        color: Color(0xFFffffff), fontSize: 20),
+                                  ),
+                                ),
+                              ],
                             ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                              child: Text(
-                                "강나연",
-                                style: TextStyle(
-                                    color: Color(0xFFffffff), fontSize: 20),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                       Container(
