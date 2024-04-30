@@ -18,7 +18,10 @@ class groupEditForm extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
                 child: TextButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    print("취소 버튼 클릭");
+                    Navigator.pushNamed(context, "/grouplist");
+                  },
                   child: Text(
                     "취소",
                     style: TextStyle(color: Color(0xff81d1fb)),
@@ -32,7 +35,10 @@ class groupEditForm extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
                 child: TextButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    print("수정 버튼 클릭");
+                    Navigator.pushNamed(context, "/grouplist");
+                  },
                   child: Text(
                     "수정",
                     style: TextStyle(color: Color(0xff81d1fb)),
