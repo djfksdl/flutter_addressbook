@@ -83,15 +83,15 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
     return Column(
       children: [
         Center(
-          child: Container(
-            width: 130,
-            height: 130,
-            margin: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Color(0xFF55FFAD),
-              borderRadius: BorderRadius.circular(300),
-            )
-          )
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(300),
+            child: Image.asset(
+              'assets/images/greenman.jpg',
+              width: 130,
+              height: 130,
+              fit: BoxFit.fill,
+            ),
+          ),
         ),
         Container(
           color: Color(0xFF161443),
