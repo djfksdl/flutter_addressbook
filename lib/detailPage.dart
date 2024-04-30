@@ -198,7 +198,7 @@ class DetailPage extends StatelessWidget {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.star),
-              label: '즐겨찾기',
+              label: '즐겨찾기 추가',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.edit),
@@ -219,7 +219,6 @@ class DetailPage extends StatelessWidget {
                       margin: EdgeInsets.fromLTRB(0, 600, 0, 0),
                       child: AlertDialog(
                         backgroundColor: Color(0xff0f0e36),
-
                         content: Container(
                           width: 600,
                           height: 100,
@@ -229,14 +228,14 @@ class DetailPage extends StatelessWidget {
                                 width: 500,
                                 height: 40,
                                 margin: EdgeInsets.fromLTRB(0, 8, 0, 12),
-                                child: ElevatedButton(onPressed: (){}, child: Text("삭제하기", style: TextStyle(color: Colors.red),),style: ElevatedButton.styleFrom(backgroundColor: Color(
-                                    0xff444444)),),
+                                child: ElevatedButton(onPressed: (){}, child: Text("삭제하기", style: TextStyle(color: Colors.red, fontSize: 15, fontWeight: FontWeight.bold),),style: ElevatedButton.styleFrom(backgroundColor: Color(
+                                    0xff888888)),),
                               ),
                               Container(
                                 width: 500,
                                 height: 40,
-                                child: ElevatedButton(onPressed: (){}, child: Text("취소", style: TextStyle(color: Colors.yellow),),style: ElevatedButton.styleFrom(backgroundColor: Color(
-                                    0xff444444))),
+                                child: ElevatedButton(onPressed: (){}, child: Text("취소", style: TextStyle(color: Colors.yellow, fontSize: 15, fontWeight: FontWeight.bold),),style: ElevatedButton.styleFrom(backgroundColor: Color(
+                                    0xff888888))),
                               ),
                             ],
                           ),
