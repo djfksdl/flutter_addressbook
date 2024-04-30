@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'category.dart';
 import 'bookmark.dart';
+import 'addresslist.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -15,6 +16,7 @@ class _AppState extends State<App> {
 
   List<Widget> _pages = [
     BookmarkPage(),
+    AddressPage(),
     CategoryPage(),
   ];
 
