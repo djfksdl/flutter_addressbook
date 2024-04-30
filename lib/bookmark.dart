@@ -18,78 +18,87 @@ class BookmarkPage extends StatelessWidget {
       // appBar: AppBar(),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            centerTitle: true,
-            pinned: true,
-            expandedHeight: 150,
-            automaticallyImplyLeading: false,
-            leading: null,
-            flexibleSpace: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                final bool isExpanded = constraints.maxHeight > 60;
-                return
-                  Container(
-                    color: Color(0xFF0F0E36)
-                    ,child: FlexibleSpaceBar(
-                    title: isExpanded
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.fromLTRB(55, 70, 0, 10) ,
-                                child: Text(
-                                  "즐겨찾기",
-                                  style: TextStyle(
-                                    color: Color(0xFFffffff),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+          Container(
+            child: SliverAppBar(
+              // centerTitle: true,
+              pinned: true,
+              expandedHeight: 150,
+              automaticallyImplyLeading: false,
+              leading: null,
+              flexibleSpace: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  final bool isExpanded = constraints.maxHeight > 80;
+                  return
+                    Container(
+                      color: Color(0xFF0F0E36),
+                      constraints: BoxConstraints.expand(),
+                      child: FlexibleSpaceBar(
+                        centerTitle: true,
+                        titlePadding: EdgeInsets.fromLTRB(0,10,0,10),
+                        title: isExpanded
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  color: Color(0xFF0F0E36),
+                                  margin: EdgeInsets.fromLTRB(0, 70, 0, 10) ,
+                                  child: Text(
+                                    "즐겨찾기",
+                                    style: TextStyle(
+                                      color: Color(0xFFffffff),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 55),
-                                child: Text(
-                                  "저장된 연락처 38개",
-                                  style: TextStyle(
-                                    color: Color(0xFFffffff),
-                                    fontSize: 10,
+                                Container(
+                                  child: Text(
+                                    "저장된 연락처 38개",
+                                    style: TextStyle(
+                                      // color: Color(0xFFffffff),
+                                      fontSize: 10,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
-                    : Expanded(
-                      child: Container(
-                        constraints: BoxConstraints.expand(),
-                        color: Color(0xFF0F0E36),
-                        child:
-                        Container(
-                          // padding: EdgeInsets.zero,
-                          margin: EdgeInsets.only(right: 30),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("즐겨찾기"),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.add,
-                                  color: Color(0xFF81D1FB),
+                              ],
+                            )
+                      : Expanded(
+
+                          child: Container(
+
+
+
+                          color: Color(0xff0F0E36),
+                          child:
+                          Container(
+                            color:Color(0xFF0F0E36) ,
+                            // padding: EdgeInsets.zero,
+                            margin: EdgeInsets.fromLTRB(30, 0, 30, 0) ,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("즐겨찾기"),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.add,
+                                    color: Color(0xFF81D1FB),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    background: Container(
-                      color: Color(0xFF0F0E36),
+                      background: Container(
+                        color: Color(0xFF0F0E36),
 
 
-                    ),
-                                    ),
-                  );
-              },
+                      ),
+                                      ),
+                    );
+                },
+              ),
             ),
           ),
           SliverToBoxAdapter(
