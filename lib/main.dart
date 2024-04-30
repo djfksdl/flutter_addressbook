@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'detailPage.dart';
 import 'bookmark.dart';
 import 'category.dart';
 import 'grouplist.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/persongroupinsert':(context)=> PersonGroupInsert(),
         '/personinsertform':(context)=> PersonInsertForm(),
         '/groupeditform':(context) => groupEditForm(),
+        '/detailpage':(context) => DetailPage(),
       }
     );
   }
