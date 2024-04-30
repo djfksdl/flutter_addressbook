@@ -23,9 +23,9 @@ class MyApp extends StatelessWidget {
         '/':(context) => App(),
         '/category':(context) => CategoryPage(),
         '/grouplist':(context) => GroupListPage(),
-        "/bookmarklist":(context)=> BookmarkPage(),
-        "/persongroupinsert":(context)=> PersonGroupInsert(),
-        "/personinsertform":(context)=> PersonInsertForm(),
+        '/bookmarklist':(context)=> BookmarkPage(),
+        '/persongroupinsert':(context)=> PersonGroupInsert(),
+        '/personinsertform':(context)=> PersonInsertForm(),
       }
     );
   }
