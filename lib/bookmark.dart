@@ -17,42 +17,109 @@ class BookmarkPage extends StatelessWidget {
       // appBar: AppBar(),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            flexibleSpace: FlexibleSpaceBar(//스크롤 되었을때 표시할 거
-              title: Text("즐겨찾기"),
+          // SliverAppBar(
+          //   pinned: true
+          //   ,expandedHeight: 100
+          //   ,flexibleSpace:
+          // Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       FlexibleSpaceBar(
+          //           title:Text(
+          //               "즐겨찾기"
+          //           ),
+          //
+          //       ),
+          //       IconButton(
+          //         onPressed: () {},
+          //         icon: Icon(
+          //           Icons.add,
+          //           color: Color(0xFF81D1FB),
+          //         ),
+          //       ),
+          //     ],
+          // ),
+          // ),
 
-            ),
-            expandedHeight: 100,
-          ),
-          SliverPersistentHeader(
+          // SliverPersistentHeader(
+          //   pinned: true,
+          //   delegate: SampleHeaderDelegate(
+          //     widget:
+          //       Column(
+          //         children: [
+          //           Container(
+          //             alignment: Alignment.center,
+          //             margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+          //             child: Text("즐겨찾기",
+          //               style: TextStyle(
+          //                   color: Color(0xFFffffff),
+          //                   fontSize: 30,
+          //                   fontWeight:FontWeight.bold
+          //               ),
+          //             ),
+          //           ),
+          //           Container(
+          //             alignment: Alignment.center,
+          //             width: 460,
+          //             child: Text("저장된 연락처 38개",
+          //               style: TextStyle(
+          //                   color: Color(0xFFffffff),
+          //                   fontSize: 20
+          //               ),
+          //             ),
+          //           ),
+          //         ],
+          //       )
+          //   ),
+          // ),
+          SliverAppBar(
             pinned: true,
-            delegate: SampleHeaderDelegate(
-              widget:
-                Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Text("즐겨찾기",
-                        style: TextStyle(
-                            color: Color(0xFFffffff),
-                            fontSize: 30,
-                            fontWeight:FontWeight.bold
+            expandedHeight: 220,
+            flexibleSpace: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                final bool isExpanded = constraints.maxHeight > 100;
+                return FlexibleSpaceBar(
+                  title: isExpanded
+                      ? Column(
+
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "즐겨찾기",
+                            style: TextStyle(
+                              color: Color(0xFFffffff),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "저장된 연락처 38개",
+                            style: TextStyle(
+                              color: Color(0xFFffffff),
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
+                      )
+                  : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("즐겨찾기"),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.add,
+                          color: Color(0xFF81D1FB),
                         ),
                       ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: 460,
-                      child: Text("저장된 연락처 38개",
-                        style: TextStyle(
-                            color: Color(0xFFffffff),
-                            fontSize: 20
-                        ),
-                      ),
-                    ),
-                  ],
-                )
+                    ],
+                  ),
+                  background: Container(
+                      color: Color(0xFF0F0E36)
+                  ),
+                );
+              },
             ),
           ),
           SliverToBoxAdapter(
@@ -495,6 +562,7 @@ class BookmarkPage extends StatelessWidget {
               ),
             ),
           )
+
         ],
 
 
@@ -527,25 +595,25 @@ class BookmarkPage extends StatelessWidget {
   }
 }
 
-class SampleHeaderDelegate extends SliverPersistentHeaderDelegate {
-  SampleHeaderDelegate({required this.widget});
-
-  Widget widget;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return widget;
-  }
-
-  @override
-  double get maxExtent => 50;
-
-  @override
-  double get minExtent => 50;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
-  }
-}
+// class SampleHeaderDelegate extends SliverPersistentHeaderDelegate {
+//   SampleHeaderDelegate({required this.widget});
+//
+//   Widget widget;
+//
+//   @override
+//   Widget build(
+//       BuildContext context, double shrinkOffset, bool overlapsContent) {
+//     return widget;
+//   }
+//
+//   @override
+//   double get maxExtent => 50;
+//
+//   @override
+//   double get minExtent => 50;
+//
+//   @override
+//   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+//     return false;
+//   }
+// }
