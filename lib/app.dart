@@ -11,7 +11,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
 
-  var _index = 0;
+  var _index = 1;
 
   List<Widget> _pages = [
     BookmarkPage(),
