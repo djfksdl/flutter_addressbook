@@ -6,7 +6,19 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("<"),),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF0F0E36),
+
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Color(0xFF81D1FB),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop(); // 뒤로가기 버튼 클릭 시 이전 화면으로 이동
+          },
+        ),
+      ),
       body: Container(
         color: Color(0xFF0f0e36),
         padding: EdgeInsets.all(30),
@@ -195,13 +207,18 @@ class DetailPage extends StatelessWidget {
           // 선택된 아이템의 색상
           unselectedItemColor: Color(0xFF81D1FB),
           // 선택되지 않은 아이템의 색상
-          items: const <BottomNavigationBarItem>[
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.star),
               label: '즐겨찾기 추가',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.edit),
+              icon: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/modifyform');
+                },
+                child: Icon(Icons.edit),
+              ),
               label: '수정',
             ),
             BottomNavigationBarItem(

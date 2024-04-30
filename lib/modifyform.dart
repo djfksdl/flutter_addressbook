@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class PersonInsertForm extends StatelessWidget {
-  const PersonInsertForm({super.key});
+class ModifyForm extends StatelessWidget {
+  const ModifyForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +9,7 @@ class PersonInsertForm extends StatelessWidget {
       body: Container(
         color: Color(0xFF0F0E36),
         padding: EdgeInsets.fromLTRB(40,40,30,20),
-        child: _PersonInsertForm(),
+        child: _ModifyForm(),
       ),
       bottomNavigationBar: SizedBox(
         height: 100,
@@ -22,34 +21,34 @@ class PersonInsertForm extends StatelessWidget {
                 width: 160,
                 height: 80,
                 margin: EdgeInsets.only(left: 15),
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: Color(0x0f0e36)
-                  ),
-                  onPressed: (){
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                      "취소",
-                      style: TextStyle(color: Color(0xFF81D1FB),fontSize: 20,fontWeight: FontWeight.bold)
-                  )
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF0F0E36)
+                    ),
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                        "취소",
+                        style: TextStyle(color: Color(0xFF81D1FB),fontSize: 20,fontWeight: FontWeight.bold)
+                    )
                 ),
               ),
               Container(
                 width: 160,
                 height: 80,
                 margin: EdgeInsets.only(left: 41),
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: Color(0x0f0e36)
-                  ),
-                  onPressed: (){
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    "등록",
-                    style: TextStyle(color: Color(0xFF81D1FB),fontSize: 20,fontWeight: FontWeight.bold)
-                  )
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF0F0E36)
+                    ),
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                        "수정",
+                        style: TextStyle(color: Color(0xFF81D1FB),fontSize: 20,fontWeight: FontWeight.bold)
+                    )
                 ),
               )
             ],
@@ -59,14 +58,17 @@ class PersonInsertForm extends StatelessWidget {
     );
   }
 }
-class _PersonInsertForm extends StatefulWidget {
-  const _PersonInsertForm({super.key});
+
+
+class _ModifyForm extends StatefulWidget {
+  const _ModifyForm({super.key});
 
   @override
-  State<_PersonInsertForm> createState() => _PersonInsertFormState();
+  State<_ModifyForm> createState() => _ModifyFormState();
 }
 
-class _PersonInsertFormState extends State<_PersonInsertForm> {
+class _ModifyFormState extends State<_ModifyForm> {
+
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _hpController = TextEditingController();
@@ -76,22 +78,21 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
 
   String men = "남성";
 
+
   @override
   Widget build(BuildContext context) {
-
-
     return Column(
       children: [
         Center(
-          child: Container(
-            width: 130,
-            height: 130,
-            margin: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Color(0xFF55FFAD),
-              borderRadius: BorderRadius.circular(300),
+            child: Container(
+                width: 130,
+                height: 130,
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Color(0xFF55FFAD),
+                  borderRadius: BorderRadius.circular(300),
+                )
             )
-          )
         ),
         Container(
           color: Color(0xFF161443),
@@ -100,16 +101,16 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
             style: TextStyle(color: Color(0xFFffffff)),
             controller: _nameController,
             decoration: InputDecoration(
-              icon: Container(
-                width: 20,
-                margin: EdgeInsets.only(left: 10),
-                child: Icon(Icons.person,color: Color(0xFFffffff),),
-              ),
-              labelText:'이름',
-              labelStyle: TextStyle(color: Color(0xFFffffff)),
-              hintText: '이름을 입력하세요',
-              hintStyle: TextStyle(color: Color(0xFFffffff)),
-              border: InputBorder.none
+                icon: Container(
+                  width: 20,
+                  margin: EdgeInsets.only(left: 10),
+                  child: Icon(Icons.person,color: Color(0xFFffffff),),
+                ),
+                labelText:'이름',
+                labelStyle: TextStyle(color: Color(0xFFffffff)),
+                hintText: '이름을 입력하세요',
+                hintStyle: TextStyle(color: Color(0xFFffffff)),
+                border: InputBorder.none
             ),
           ),
         ),
@@ -139,13 +140,13 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
           color: Color(0xFF161443),
           margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
           child: Row(
-            children: [
-              Container(
-                width: 20,
-                margin: EdgeInsets.only(left: 10),
-                child: Icon(Icons.wc,color: Color(0xFFffffff),),
-              ),
-              /*
+              children: [
+                Container(
+                  width: 20,
+                  margin: EdgeInsets.only(left: 10),
+                  child: Icon(Icons.wc,color: Color(0xFFffffff),),
+                ),
+                /*
               RadioListTile(
                 title: Text('남성'),
                 value: men,
@@ -156,7 +157,7 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
                 },
               )
               */
-            ]
+              ]
           ),
         ),
 
@@ -187,7 +188,7 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Color(0xFF161443),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero
+                  borderRadius: BorderRadius.zero
               ),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               padding: EdgeInsets.only(left:13),
@@ -202,14 +203,14 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
                   child: Icon(Icons.group,color: Color(0xFFffffff),),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: Text(
-                    "그룹",
-                    style: TextStyle(
-                      color: Color(0xFFffffff),
-                      fontSize: 16
-                    ),
-                  )
+                    margin: EdgeInsets.only(left: 10),
+                    child: Text(
+                      "그룹",
+                      style: TextStyle(
+                          color: Color(0xFFffffff),
+                          fontSize: 16
+                      ),
+                    )
                 )
               ],
             ),

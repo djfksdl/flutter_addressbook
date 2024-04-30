@@ -11,7 +11,19 @@ class _GroupListPageState extends State<GroupListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF0F0E36),
+
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Color(0xFF81D1FB),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop(); // 뒤로가기 버튼 클릭 시 이전 화면으로 이동
+          },
+        ),
+      ),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
         child: Container(
@@ -67,42 +79,7 @@ class _GroupListPageState extends State<GroupListPage> {
                   width: 430,
                   child: Column(
                     children: [
-                      GestureDetector(
-                        onTap: (){
-                          print("상세페이지이동");
-                          Navigator.pushNamed(context, '/detailpage');
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(
-                                      color: Color(0xFF26295E), width: 1.0))),
-                          margin: EdgeInsets.only(bottom: 20),
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Center(
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(70),
-                                  child: Image.asset(
-                                    'assets/images/girl.png',
-                                    width: 50,
-                                    height: 50,
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text(
-                                    "강나연",
-                                    style: TextStyle(
-                                        color: Color(0xFFffffff), fontSize: 20),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+
                       Container(
                         decoration: BoxDecoration(
                             border: Border(
@@ -110,25 +87,30 @@ class _GroupListPageState extends State<GroupListPage> {
                                     color: Color(0xFF26295E), width: 1.0))),
                         margin: EdgeInsets.only(bottom: 20),
                         padding: EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(70),
-                              child: Image.asset(
-                                'assets/images/girl.png',
-                                width: 50,
-                                height: 50,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/detailpage'); // '/profile'로 페이지 이동
+                          },
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(70),
+                                child: Image.asset(
+                                  'assets/images/girl.png',
+                                  width: 50,
+                                  height: 50,
+                                ),
                               ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                              child: Text(
-                                "강나연",
-                                style: TextStyle(
-                                    color: Color(0xFFffffff), fontSize: 20),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                child: Text(
+                                  "강나연",
+                                  style: TextStyle(
+                                      color: Color(0xFFffffff), fontSize: 20),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       Container(

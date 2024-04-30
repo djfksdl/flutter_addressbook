@@ -176,12 +176,7 @@ class CategoryPage extends StatelessWidget {
                             padding: EdgeInsets.only(bottom: 10),
 
                             child:
-                            GestureDetector(
-                              onTap: (){
-                                print("그룹버튼클릭");
-                                Navigator.pushNamed(context, '/grouplist');
-                              },
-                              child: Row(
+                            Row(
 
                                 children: [
                                   ClipRRect(
@@ -221,7 +216,7 @@ class CategoryPage extends StatelessWidget {
                               ),
                             ),
 
-                          ),
+
 
                         ],
                       ))

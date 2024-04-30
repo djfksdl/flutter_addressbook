@@ -8,6 +8,7 @@ import 'app.dart';
 import 'persongroupinsert.dart';
 import 'personinsert.dart';
 import 'groupeditform.dart';
+import 'modifyform.dart';
 
 
 
@@ -33,6 +34,8 @@ class MyApp extends StatelessWidget {
         '/groupeditform':(context) => groupEditForm(),
         '/detailpage':(context) => DetailPage(),
         '/addresspage':(context) => AddressPage(),
+        '/modifyform':(context) => ModifyForm(),
+
       }
     );
   }

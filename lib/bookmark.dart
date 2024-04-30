@@ -108,7 +108,7 @@ class BookmarkPage extends StatelessWidget {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
                         child: Text("ㄱ",
@@ -117,10 +117,7 @@ class BookmarkPage extends StatelessWidget {
                               fontSize: 20
                           ),),
                       ),
-                      IconButton(onPressed: (){},
-                          icon: Icon(Icons.add,
-                            color: Color(0xFF81D1FB),)
-                      ),
+
                     ],
                   ),
                   Container(
@@ -146,28 +143,33 @@ class BookmarkPage extends StatelessWidget {
                             ),
                             margin: EdgeInsets.only(bottom: 20) ,
                             padding: EdgeInsets.only(bottom: 10),
-                            child: Row(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/detailpage');
+                              },
+                              child: Row(
 
-                              children: [
+                                children: [
 
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(70) ,
-                                  child: Image.asset(
-                                    'assets/images/girl.png',
-                                    width: 50,
-                                    height: 50,
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(70) ,
+                                    child: Image.asset(
+                                      'assets/images/girl.png',
+                                      width: 50,
+                                      height: 50,
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text("강나연", style: TextStyle(
-                                      color: Color(0xFFffffff),
-                                      fontSize: 20
-                                  ),
+                                  Container(
+                                    margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                    child: Text("강나연", style: TextStyle(
+                                        color: Color(0xFFffffff),
+                                        fontSize: 20
+                                    ),
 
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           Container(

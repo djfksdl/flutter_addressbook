@@ -16,15 +16,17 @@ class groupEditForm extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Container(
+                width: 160,
+                height: 80,
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
                 child: TextButton(
                   onPressed: (){
                     print("취소 버튼 클릭");
-                    Navigator.pushNamed(context, "/grouplist");
+                    Navigator.of(context).pop();
                   },
                   child: Text(
                     "취소",
-                    style: TextStyle(color: Color(0xff81d1fb)),
+                    style: TextStyle(color: Color(0xff81d1fb),fontSize: 20,fontWeight: FontWeight.bold),
 
                   ),
                 ),
@@ -33,15 +35,17 @@ class groupEditForm extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Container(
+                width: 160,
+                height: 80,
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
                 child: TextButton(
                   onPressed: (){
                     print("수정 버튼 클릭");
-                    Navigator.pushNamed(context, "/grouplist");
+                    Navigator.of(context).pop();
                   },
                   child: Text(
                     "수정",
-                    style: TextStyle(color: Color(0xff81d1fb)),
+                    style: TextStyle(color: Color(0xff81d1fb),fontSize: 20,fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
