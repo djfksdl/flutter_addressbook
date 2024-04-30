@@ -22,6 +22,7 @@ class groupEditForm extends StatelessWidget {
                   child: Text(
                     "취소",
                     style: TextStyle(color: Color(0xff81d1fb)),
+
                   ),
                 ),
               ),
@@ -98,7 +99,7 @@ class _groupEditFormState extends State<_groupEditForm> {
                 Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.fromLTRB(0, 30, 160, 0),
+                      margin: EdgeInsets.fromLTRB(0, 30, 170, 0),
                       child: Text("그룹명",
                         style: TextStyle(
                             fontSize: 20,
@@ -109,15 +110,17 @@ class _groupEditFormState extends State<_groupEditForm> {
                     Container(
                       width: 250,
                       height: 35,
-                      margin: EdgeInsets.fromLTRB(20, 5, 0, 10),
+                      margin: EdgeInsets.fromLTRB(25, 5, 0, 10),
                       child: TextFormField(
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           hintText: "새로운 그룹 이름을 입력해 주세요",
                           hintStyle: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xff545151),
                             fontSize: 15,
-                            fontWeight: FontWeight.w100
+                            fontWeight: FontWeight.w100,
+
+
                           ),
                           counterText: '',
                           // border: UnderlineInputBorder()
