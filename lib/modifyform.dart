@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 class ModifyForm extends StatelessWidget {
   const ModifyForm({super.key});
@@ -78,6 +79,7 @@ class _ModifyFormState extends State<_ModifyForm> {
 
   String men = "남성";
 
+  //화면 그리기
   @override
   Widget build(BuildContext context) {
     // ModalRoute를 통해 현재 페이지에 전달된 arguments를 가져옵니다.
@@ -248,5 +250,31 @@ class _ModifyFormState extends State<_ModifyForm> {
         ),
       ],
     );
+  }
+
+  //특정 aNo의 데이터 가져오기
+  Future<void> getPersonByNo(int aNo) async {
+    try {
+    /*----요청처리-------------------*/
+    //Dio 객체 생성및 설정
+    var dio = Dio();
+    // 헤더설정:json으로 전송
+    dio.options.headers['Content-Type'] = 'application/json';
+    // 서버 요청
+    final response = await dio.put
+    ('http://localhost:9099/api/ysGetVo/${aNo}');
+      /*----응답처리-------------------*/
+      if (response.statusCode == 200) {
+        //접속성공 200 이면
+        print(response.data); // json->map 자동변경
+        // return PersonVo.fromJson(response.data["apiData"]);
+      } else {
+      //접속실패 404, 502등등 api서버 문제
+      throw Exception('api 서버 문제');
+      }
+    } catch (e) {
+      //예외 발생
+      throw Exception('Failed to load person: $e');
+    }
   }
 }
