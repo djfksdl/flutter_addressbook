@@ -153,10 +153,6 @@ class _DetailPageState extends State<_DetailPage> {
         } else if (!snapshot.hasData) {
           return Center(child: Text('데이터가 없습니다.'));
         } else { //데이터가 있으면
-          return ListView.builder(
-            itemExtent: 90, //충돌안나게 아이템 높이 설정 -> {}뒤에 shrinkWrap:true도 설정해야함
-            itemCount: 1, //몇개 가지고있는지 꼭 알려줘야함.
-            itemBuilder: (BuildContext context, int index) {
               return Column(
                 children: [
                   Container(
@@ -332,9 +328,6 @@ class _DetailPageState extends State<_DetailPage> {
                   ),
                 ],
               );
-            }
-            , shrinkWrap: true, // ListView의 높이를 자식 위젯에 맞게 조절
-          );
         } // 데이터가있으면
       },
     );
@@ -359,11 +352,9 @@ class _DetailPageState extends State<_DetailPage> {
       /*----응답처리-------------------*/
       if (response.statusCode == 200) {
         //접속성공 200 이면
-        print(response.data); // json->map 자동변경
-
+        //print(response.data); // json->map 자동변경
         AddressbookVo detailVo = AddressbookVo.fromJson(response.data["apiData"]);
 
-        print(detailVo);
         print("===");
 
         return detailVo;
