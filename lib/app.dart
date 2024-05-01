@@ -33,7 +33,7 @@ class _AppState extends State<App> {
             onTap: (value) {
               setState(() {
                 _index = value;
-                print(_index);
+                // print(_index);
               });
             },
 

@@ -2,13 +2,13 @@ class AddressbookVo {
   int aNo;
   int cNo;
   int acNo;
-  String name;
-  String hp;
-  int gender;
-  String email;
-  String memo;
-  bool favorite;
-  String cName;
+  String? name;
+  String? hp;
+  int? gender;
+  String? email;
+  String? memo;
+  bool? favorite;
+  String? cName;
 
   AddressbookVo({
     required this.aNo,
@@ -25,6 +25,7 @@ class AddressbookVo {
 
   //map--> personVo형식으로 변환
   factory AddressbookVo.fromJson(Map<String, dynamic> apiData) {//map을 00로 빼준다.
+    print(apiData);
     return AddressbookVo(
       aNo: apiData['aNo'],
       cNo: apiData['cNo'],
