@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:dio/dio.dart';
 
 
 
@@ -15,7 +16,7 @@ class BookmarkPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      backgroundColor: Color(0xFF0F0E36),
       body: CustomScrollView(
         slivers: [
           Container(
@@ -63,10 +64,7 @@ class BookmarkPage extends StatelessWidget {
                               ],
                             )
                       : Expanded(
-
                           child: Container(
-
-
 
                           color: Color(0xff0F0E36),
                           child:
@@ -148,9 +146,7 @@ class BookmarkPage extends StatelessWidget {
                                 Navigator.pushNamed(context, '/detailpage');
                               },
                               child: Row(
-
                                 children: [
-
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(70) ,
                                     child: Image.asset(
@@ -164,369 +160,79 @@ class BookmarkPage extends StatelessWidget {
                                     child: Text("강나연", style: TextStyle(
                                         color: Color(0xFFffffff),
                                         fontSize: 20
-                                    ),
-
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: Color(0xFF26295E),
-                                        width: 1.0
-                                    )
-                                )
-                            ),
-                            margin: EdgeInsets.only(bottom: 20) ,
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(70) ,
-                                  child: Image.asset(
-                                    'assets/images/girl.png',
-                                    width: 50,
-                                    height: 50,
-
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text("강나연", style: TextStyle(
-                                      color: Color(0xFFffffff),
-                                      fontSize: 20
-                                  ),
-
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: Color(0xFF26295E),
-                                        width: 1.0
-                                    )
-                                )
-                            ),
-                            margin: EdgeInsets.only(bottom: 20) ,
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(70) ,
-                                  child: Image.asset(
-                                    'assets/images/girl.png',
-                                    width: 50,
-                                    height: 50,
-
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text("강나연", style: TextStyle(
-                                      color: Color(0xFFffffff),
-                                      fontSize: 20
-                                  ),
-
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: Color(0xFF26295E),
-                                        width: 1.0
-                                    )
-                                )
-                            ),
-                            margin: EdgeInsets.only(bottom: 20) ,
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(70) ,
-                                  child: Image.asset(
-                                    'assets/images/girl.png',
-                                    width: 50,
-                                    height: 50,
-
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text("강나연", style: TextStyle(
-                                      color: Color(0xFFffffff),
-                                      fontSize: 20
-                                  ),
-
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: Color(0xFF26295E),
-                                        width: 1.0
-                                    )
-                                )
-                            ),
-                            margin: EdgeInsets.only(bottom: 20) ,
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(70) ,
-                                  child: Image.asset(
-                                    'assets/images/girl.png',
-                                    width: 50,
-                                    height: 50,
-
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text("강나연", style: TextStyle(
-                                      color: Color(0xFFffffff),
-                                      fontSize: 20
-                                  ),
-
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: Color(0xFF26295E),
-                                        width: 1.0
-                                    )
-                                )
-                            ),
-                            margin: EdgeInsets.only(bottom: 20) ,
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(70) ,
-                                  child: Image.asset(
-                                    'assets/images/girl.png',
-                                    width: 50,
-                                    height: 50,
-
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text("강나연", style: TextStyle(
-                                      color: Color(0xFFffffff),
-                                      fontSize: 20
-                                  ),
-
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: Color(0xFF26295E),
-                                        width: 1.0
-                                    )
-                                )
-                            ),
-                            margin: EdgeInsets.only(bottom: 20) ,
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(70) ,
-                                  child: Image.asset(
-                                    'assets/images/girl.png',
-                                    width: 50,
-                                    height: 50,
-
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text("강나연", style: TextStyle(
-                                      color: Color(0xFFffffff),
-                                      fontSize: 20
-                                  ),
-
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: Color(0xFF26295E),
-                                        width: 1.0
-                                    )
-                                )
-                            ),
-                            margin: EdgeInsets.only(bottom: 20) ,
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(70) ,
-                                  child: Image.asset(
-                                    'assets/images/girl.png',
-                                    width: 50,
-                                    height: 50,
-
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text("강나연", style: TextStyle(
-                                      color: Color(0xFFffffff),
-                                      fontSize: 20
-                                  ),
-
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: Color(0xFF26295E),
-                                        width: 1.0
-                                    )
-                                )
-                            ),
-                            margin: EdgeInsets.only(bottom: 20) ,
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(70) ,
-                                  child: Image.asset(
-                                    'assets/images/girl.png',
-                                    width: 50,
-                                    height: 50,
-
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text("강나연", style: TextStyle(
-                                      color: Color(0xFFffffff),
-                                      fontSize: 20
-                                  ),
-
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: Color(0xFF26295E),
-                                        width: 1.0
-                                    )
-                                )
-                            ),
-                            margin: EdgeInsets.only(bottom: 20) ,
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(70) ,
-                                  child: Image.asset(
-                                    'assets/images/girl.png',
-                                    width: 50,
-                                    height: 50,
-
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text("강나연", style: TextStyle(
-                                      color: Color(0xFFffffff),
-                                      fontSize: 20
-                                  ),
-
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: Color(0xFF26295E),
-                                        width: 1.0
-                                    )
-                                )
-                            ),
-                            margin: EdgeInsets.only(bottom: 20) ,
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(70) ,
-                                  child: Image.asset(
-                                    'assets/images/girl.png',
-                                    width: 50,
-                                    height: 50,
-
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text("강나연", style: TextStyle(
-                                      color: Color(0xFFffffff),
-                                      fontSize: 20
-                                  ),
-
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                         ],
                       )
-
                   )
-
                 ],
-
               ),
             ),
           )
-
         ],
-
       ),
     );
   }
 }
+
+//---------------------동적인 내용 설정----------------------------
+//등록
+class _BookmarkList extends StatefulWidget {
+  const _BookmarkList({super.key});
+
+  @override
+  State<_BookmarkList> createState() => _BookmarkListState();
+}
+
+//할일
+class _BookmarkListState extends State<_BookmarkList> {
+
+  //초기화
+  @override
+  void initState() {
+    super.initState();
+
+  }
+
+  //그림그리는곳(build)
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+
+  //리스트 가져오기
+  Future<void> getBookmarkList() async {
+    try {
+      /*----요청처리-------------------*/
+      //Dio 객체 생성 및 설정
+      var dio = Dio();
+      // 헤더설정:json으로 전송
+      dio.options.headers['Content-Type'] = 'application/json';
+      // 서버 요청
+      final response = await dio.put(
+        'http://13.125.251.10:9099/api/ysGetList',
+      );
+      /*----응답처리-------------------*/
+      if (response.statusCode == 200) {
+        //접속성공 200 이면
+        print(response.data); // json->map 자동변경
+        // return PersonVo.fromJson(response.data["apiData"]);
+      } else {
+        //접속실패 404, 502등등 api서버 문제
+        throw Exception('api 서버 문제');
+      }
+    } catch (e) {
+      //예외 발생
+      throw Exception('Failed to load person: $e');
+    }
+  }
+
+
+}
+
 
