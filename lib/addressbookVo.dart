@@ -1,6 +1,3 @@
-
-import 'dart:ffi';
-
 class AddressbookVo {
   int aNo;
   int cNo;
