@@ -266,7 +266,11 @@ class _DetailPageState extends State<_DetailPage> {
                       BottomNavigationBarItem(
                         icon: GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/modifyform');
+                            Navigator.pushNamed(context, '/modifyform',
+                              arguments: {
+                                "aNo": snapshot.data!.aNo
+                              }
+                            );
                           },
                           child: Icon(Icons.edit),
                         ),

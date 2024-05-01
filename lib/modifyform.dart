@@ -78,9 +78,16 @@ class _ModifyFormState extends State<_ModifyForm> {
 
   String men = "남성";
 
-
   @override
   Widget build(BuildContext context) {
+    // ModalRoute를 통해 현재 페이지에 전달된 arguments를 가져옵니다.
+    late final args = ModalRoute.of(context)!.settings.arguments as Map;
+    // 'aNo' 키를 사용하여 값을 추출합니다.
+    late final aNo = args['aNo'];
+    print("==============");
+    print(aNo);
+    print("==============");
+
     return Column(
       children: [
         Center(
