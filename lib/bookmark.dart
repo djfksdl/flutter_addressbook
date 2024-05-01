@@ -13,10 +13,12 @@ import 'addressbookVo.dart';
 
 
 class BookmarkPage extends StatelessWidget {
-  const BookmarkPage({super.key});
+  // const BookmarkPage({super.key});
+  const BookmarkPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<_BookmarkListState> _bookmarkListKey = GlobalKey<_BookmarkListState>();
     return Scaffold(
       backgroundColor: Color(0xFF0F0E36),
       body: CustomScrollView(
@@ -57,7 +59,7 @@ class BookmarkPage extends StatelessWidget {
                             ),
                             Container(
                               child: Text(
-                                "저장된 연락처 38개",
+                                "저장된 연락처 ${_bookmarkListKey.currentState?.getCount()}개",
                                 style: TextStyle(
                                   // color: Color(0xFFffffff),
                                   fontSize: 10,
@@ -146,17 +148,28 @@ class BookmarkPage extends StatelessWidget {
 //---------------------동적인 내용 설정----------------------------
 //등록
 class _BookmarkList extends StatefulWidget {
-  const _BookmarkList({super.key});
+  // const _BookmarkList({super.key});
+  const _BookmarkList({Key? key}) : super(key: key);
+  // _BookmarkList({Key? key}) : super(key: key);
 
   @override
   State<_BookmarkList> createState() => _BookmarkListState();
+
 }
 
 //할일
 class _BookmarkListState extends State<_BookmarkList> {
+  // GlobalKey 정의
+  final GlobalKey<_BookmarkListState> _bookmarkListKey = GlobalKey<_BookmarkListState>();
 
   //공통변수 -data()같은 개념
   late Future<List<AddressbookVo>> bookmarkListFuture;
+  List<AddressbookVo> bookmarkList = [];
+
+  //새로운 메소드
+  int getCount(){
+    return bookmarkList.length;
+  }
 
   //초기화
   @override
@@ -179,6 +192,7 @@ class _BookmarkListState extends State<_BookmarkList> {
           return Center(child: Text('데이터가 없습니다.'));
         } else { //데이터가 있으면
           return ListView.builder(
+            itemExtent: 90, //충돌안나게 아이템 높이 설정 -> {}뒤에 shrinkWrap:true도 설정해야함
             itemCount: snapshot.data!.length, //몇개 가지고있는지 꼭 알려줘야함.
             itemBuilder: (BuildContext context, int index) {
               return Column(
@@ -228,6 +242,7 @@ class _BookmarkListState extends State<_BookmarkList> {
               );
 
             }
+            ,shrinkWrap: true, // ListView의 높이를 자식 위젯에 맞게 조절
           );
 
         } // 데이터가있으면
@@ -250,21 +265,20 @@ class _BookmarkListState extends State<_BookmarkList> {
       /*----응답처리-------------------*/
       if (response.statusCode == 200) {
         //접속성공 200 이면
-        print(response.data["apiData"]); // json->map 자동변경
-        print(response.data["apiData"].length);
-        print(response.data["apiData"][0]["name"]);
+        // print(response.data["apiData"]); // json->map 자동변경
+        // print(response.data["apiData"].length);
+        // print(response.data["apiData"][0]["name"]);
         // return PersonVo.fromJson(response.data["apiData"]);
         List<AddressbookVo> bookmarkList =[];
-        print("여기여영");
+
         for(int i=0; i<response.data["apiData"].length; i++){
-          print("여aaaaa");
+
           AddressbookVo bookmarkVo = AddressbookVo.fromJson(response.data["apiData"][i]);
-          print(bookmarkVo);
+
           bookmarkList.add(bookmarkVo);
-          print("===");
+
         }
-        print("여기여영22");
-        print(bookmarkList);
+        // print(bookmarkList);
         return bookmarkList;
 
       } else {
