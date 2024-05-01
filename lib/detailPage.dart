@@ -251,7 +251,9 @@ class DetailPage extends StatelessWidget {
                               Container(
                                 width: 500,
                                 height: 40,
-                                child: ElevatedButton(onPressed: (){}, child: Text("취소", style: TextStyle(color: Colors.yellow, fontSize: 15, fontWeight: FontWeight.bold),),style: ElevatedButton.styleFrom(backgroundColor: Color(
+                                child: ElevatedButton(onPressed: (){
+                                  Navigator.of(context).pop();
+                                }, child: Text("취소", style: TextStyle(color: Colors.yellow, fontSize: 15, fontWeight: FontWeight.bold),),style: ElevatedButton.styleFrom(backgroundColor: Color(
                                     0xff888888))),
                               ),
                             ],
