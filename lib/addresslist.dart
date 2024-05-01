@@ -133,8 +133,8 @@ class AddressPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                           color: Color(0xFF161443),
                         ),
-                         width: 430,
-                         height: 550,
+                        // width: 430,
+                        // height: 550,
                         child: _AddressList()
                     )
                   ],
@@ -185,6 +185,7 @@ class _AddressListState extends State<_AddressList> {
           return Center(child: Text('데이터가 없습니다.'));
         } else { //데이터가 있으면
           return ListView.builder(
+              itemExtent: 90, //충돌안나게 아이템 높이 설정 -> {}뒤에 shrinkWrap:true도 설정해야함
               itemCount: snapshot.data!.length, //몇개 가지고있는지 꼭 알려줘야함.
               itemBuilder: (BuildContext context, int index) {
                 return Column(
@@ -203,7 +204,11 @@ class _AddressListState extends State<_AddressList> {
                       padding: EdgeInsets.only(bottom: 10),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/detailpage');
+                          Navigator.pushNamed(context, '/detailpage',
+                          arguments: {
+                            "aNo": snapshot.data![index].aNo
+                          }
+                          );
                         },
                         child: Row(
 
@@ -233,6 +238,7 @@ class _AddressListState extends State<_AddressList> {
                   ],
                 );
               }
+            ,shrinkWrap: true, // ListView의 높이를 자식 위젯에 맞게 조절
           );
         } // 데이터가있으면
       },
