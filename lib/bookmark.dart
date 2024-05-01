@@ -13,12 +13,14 @@ import 'addressbookVo.dart';
 
 
 class BookmarkPage extends StatelessWidget {
-  // const BookmarkPage({super.key});
-  const BookmarkPage({Key? key}) : super(key: key);
+  const BookmarkPage({super.key});
+
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<_BookmarkListState> _bookmarkListKey = GlobalKey<_BookmarkListState>();
+    // _BookmarkListState 클래스의 인스턴스 생성 : 저장된 번호 length로 불러오기 위해 설정
+    _BookmarkListState _bookmarkListState = _BookmarkListState();
+
     return Scaffold(
       backgroundColor: Color(0xFF0F0E36),
       body: CustomScrollView(
@@ -58,12 +60,30 @@ class BookmarkPage extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              child: Text(
-                                "저장된 연락처 ${_bookmarkListKey.currentState?.getCount()}개",
-                                style: TextStyle(
-                                  // color: Color(0xFFffffff),
-                                  fontSize: 10,
-                                ),
+                              child: FutureBuilder<List<AddressbookVo>>(
+                                future: _bookmarkListState.getBookmarkList(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  } else if (snapshot.hasError) {
+                                    return Center(
+                                        child: Text(
+                                            '데이터를 불러오는 데 실패했습니다.'));
+                                  } else if (!snapshot.hasData ||
+                                      snapshot.data!.isEmpty) {
+                                    return Center(
+                                        child: Text('데이터가 없습니다.'));
+                                  } else {
+                                    return Text(
+                                      "저장된 연락처 ${snapshot.data!.length}개",
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                      ),
+                                    );
+                                  }
+                                },
                               ),
                             ),
                           ],
@@ -148,28 +168,17 @@ class BookmarkPage extends StatelessWidget {
 //---------------------동적인 내용 설정----------------------------
 //등록
 class _BookmarkList extends StatefulWidget {
-  // const _BookmarkList({super.key});
-  const _BookmarkList({Key? key}) : super(key: key);
-  // _BookmarkList({Key? key}) : super(key: key);
+  const _BookmarkList({super.key});
 
   @override
   State<_BookmarkList> createState() => _BookmarkListState();
-
 }
 
 //할일
 class _BookmarkListState extends State<_BookmarkList> {
-  // GlobalKey 정의
-  final GlobalKey<_BookmarkListState> _bookmarkListKey = GlobalKey<_BookmarkListState>();
 
   //공통변수 -data()같은 개념
   late Future<List<AddressbookVo>> bookmarkListFuture;
-  List<AddressbookVo> bookmarkList = [];
-
-  //새로운 메소드
-  int getCount(){
-    return bookmarkList.length;
-  }
 
   //초기화
   @override
