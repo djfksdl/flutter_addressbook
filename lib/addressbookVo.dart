@@ -10,7 +10,7 @@ class AddressbookVo {
   int gender;
   String email;
   String memo;
-  Bool favorite;
+  bool favorite;
   String cName;
 
   AddressbookVo({
