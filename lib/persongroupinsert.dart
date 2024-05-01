@@ -57,6 +57,7 @@ class _PersonGroupInsertState extends State<_PersonGroupInsert> {
   //변수
   late Future<List<AddressbookVo>> groupListFuture;
   late List<dynamic> _choiceGNoList =[];
+  late List<int> _lastchoicegNoList = [];
 
   @override
   void initState() {
@@ -92,7 +93,7 @@ class _PersonGroupInsertState extends State<_PersonGroupInsert> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, int index) {
 
-                      print(_choiceGNoList[index]["tf"]);
+
 
                       //그룹갯수만큼 false로 초기세팅
                       return Column(
@@ -124,6 +125,15 @@ class _PersonGroupInsertState extends State<_PersonGroupInsert> {
                                         onChanged: (value) {
                                           //print(value);
                                           setState(() { //누르면 true로 변경
+                                            if (index == 0 && value == true) {
+                                              // 0번째 요소가 true인 경우에만 실행
+                                              for (int i = 1; i < _choiceGNoList.length; i++) {
+                                                // 나머지 요소들을 false로 변경
+                                                _choiceGNoList[i]["tf"] = false;
+                                              }
+                                            }else if(index > 0 && value == true){
+                                              _choiceGNoList[0]["tf"] = false;
+                                            }
                                             _choiceGNoList[index]["tf"] = value ?? false;
 
                                             //print([index]);
@@ -147,9 +157,14 @@ class _PersonGroupInsertState extends State<_PersonGroupInsert> {
               child: ElevatedButton(
 
                 onPressed: (){
-                  Navigator.of(context).pop(
-
-                  );
+                  //print(_choiceGNoList);
+                  for(int i = 0; i < _choiceGNoList.length; i++){
+                    if(_choiceGNoList[i]["tf"] == true){
+                      _lastchoicegNoList.add(_choiceGNoList[i]["gNo"]);
+                    }
+                  }
+                  print(_lastchoicegNoList);
+                  Navigator.of(context).pop(_lastchoicegNoList);
                 },
                 child: Text("선택완료")),
             )

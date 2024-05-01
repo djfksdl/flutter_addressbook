@@ -62,13 +62,20 @@ class PersonInsertForm extends StatelessWidget {
   }
 }
 class _PersonInsertForm extends StatefulWidget {
-  const _PersonInsertForm({super.key});
+  final List<int> lastChoiceGNoList;
+
+  const _PersonInsertForm({Key? key, this.lastChoiceGNoList = const []}) : super(key: key);
+
+
 
   @override
-  State<_PersonInsertForm> createState() => _PersonInsertFormState();
+  State<_PersonInsertForm> createState() => _PersonInsertFormState(lastChoiceGNoList);
 }
 
 class _PersonInsertFormState extends State<_PersonInsertForm> {
+  late List<int> lastChoiceGNoList;
+
+  _PersonInsertFormState(this.lastChoiceGNoList);
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _hpController = TextEditingController();
@@ -77,13 +84,12 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
   final TextEditingController _memoController = TextEditingController();
 
 
-  //그룹리스트(다이얼로그)
-  late Future<List<AddressbookVo>> groupListFuture;
-
 
   @override
   Widget build(BuildContext context) {
-
+    print("======================================");
+    print(lastChoiceGNoList);
+    print("======================================");
 
     return Column(
       children: [
@@ -216,6 +222,25 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
                       fontSize: 16
                     ),
                   )
+                ),
+
+                Container(
+                  width: 200,
+                  color: Color(0xFF161443),
+                  alignment: Alignment.centerLeft,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: lastChoiceGNoList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Row(
+                        children: [
+                          Text("lastChoiceGNoList[index]",
+                            style: TextStyle(color: Color(0xFFffffff),fontSize: 15),)
+                        ],
+                      );
+                    }
+                  ),
+
                 )
               ],
             ),
