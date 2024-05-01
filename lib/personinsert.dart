@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'addressbookVo.dart';
+import 'package:dio/dio.dart';
 
 class PersonInsertForm extends StatelessWidget {
   const PersonInsertForm({super.key});
@@ -74,7 +76,10 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _memoController = TextEditingController();
 
-  String men = "남성";
+
+  //그룹리스트(다이얼로그)
+  late Future<List<AddressbookVo>> groupListFuture;
+
 
   @override
   Widget build(BuildContext context) {
@@ -195,6 +200,7 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
             onPressed: (){
               print("클릭");
               Navigator.pushNamed(context, '/persongroupinsert');
+
             },
             child: Row(
               children: [
@@ -242,3 +248,5 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
     );
   }
 }
+
+
