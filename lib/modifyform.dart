@@ -102,9 +102,7 @@ class _ModifyFormState extends State<_ModifyForm> {
     late final args = ModalRoute.of(context)!.settings.arguments as Map;
     // 'aNo' 키를 사용하여 값을 추출합니다.
     late final aNo = args['aNo'];
-    print("============== 여기");
-    print(aNo);
-    print("============== 사람 번호받은거");
+    // print(aNo);
 
     //aNo데이터를 서버로부터 가져오기 - 초기화에서 불러오면 안됨쓰: aNo를 인식못하니까
     mFormFuture = getPersonByNo(aNo);
@@ -221,7 +219,7 @@ class _ModifyFormState extends State<_ModifyForm> {
                      padding: EdgeInsets.only(left:13),
                    ),
                    onPressed: (){
-                     print("클릭");
+                     // print("클릭");
                      Navigator.pushNamed(context, '/persongroupinsert');
                    },
                    child: Row(
@@ -288,7 +286,7 @@ class _ModifyFormState extends State<_ModifyForm> {
       /*----응답처리-------------------*/
       if (response.statusCode == 200) {
         //접속성공 200 이면
-        print(response.data); // json->map 자동변경
+        // print(response.data); // json->map 자동변경
         AddressbookVo infoByaNo = AddressbookVo.fromJson(response.data["apiData"]);
         return infoByaNo;
 
@@ -317,7 +315,7 @@ class _ModifyFormState extends State<_ModifyForm> {
       /*----응답처리-------------------*/
       if (response.statusCode == 200) {
       //접속성공 200 이면
-      print(response.data); // json->map 자동변경
+      // print(response.data); // json->map 자동변경
       // return AddressbookVo.fromJson(response.data["apiData"]);
       } else {
       //접속실패 404, 502등등 api서버 문제
