@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'addressbookVo.dart';
+import 'app.dart';
 
 class CategoryPage extends StatelessWidget {
   const CategoryPage({super.key});
@@ -44,33 +45,6 @@ class CategoryPage extends StatelessWidget {
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
-                              ),
-                            ),
-                            Container(
-                              child: FutureBuilder<List<AddressbookVo>>(
-                                future: _categoryPageState.getCategoryList(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return Center(
-                                        child: CircularProgressIndicator());
-                                  } else if (snapshot.hasError) {
-                                    return Center(
-                                        child: Text(
-                                            '데이터를 불러오는 데 실패했습니다.'));
-                                  } else if (!snapshot.hasData ||
-                                      snapshot.data!.isEmpty) {
-                                    return Center(
-                                        child: Text('데이터가 없습니다.'));
-                                  } else {
-                                    return Text(
-                                      "저장된 연락처 ${snapshot.data!.length}개",
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                      ),
-                                    );
-                                  }
-                                },
                               ),
                             ),
                           ],
@@ -166,10 +140,11 @@ class CategoryPage extends StatelessWidget {
                                               String cName =
                                                   _cNameController.text;
                                               print(cName);
-                                              Navigator.pushNamed(context, "/category");
+                                              Navigator.pushNamed(context, "/");
                                               _CategoryPageState()
                                                   .InsertCategory(cName);
                                               _CategoryPageState().getCategoryList();
+
 
                                             },
                                             child: Text(
@@ -241,64 +216,74 @@ class _CategoryPageState extends State<_CategoryPage> {
           //데이터가 있으면
           // _nameController.text = snapshot.data!.name; --> input사용할때
           // for문으로반복문 사용 X builder로 사용
-          return ListView.builder(
-            itemExtent: 90,
-            itemCount: snapshot.data!.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                color: Color(0xFF26295E), width: 1.0))),
-                    margin: EdgeInsets.only(bottom: 20),
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: Row(
+          return Column(
+            children: [
+              Container(
+                child: ListView.builder(
+                  itemExtent: 90,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(70),
-                          child: Container(
-                            child: Icon(
-                              Icons.group,
-                              size: 40,
-                              color: Color(0xffffffff),
-                            ),
-                          ),
-                        ),
                         Container(
-                          width: 230,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          child: Text(
-                            "${snapshot.data![index].cName}",
-                            style: TextStyle(
-                                color: Color(0xFFffffff), fontSize: 20),
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: Color(0xFF26295E), width: 1.0))),
+                          margin: EdgeInsets.only(bottom: 20),
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(70),
+                                child: Container(
+                                  child: Icon(
+                                    Icons.group,
+                                    size: 40,
+                                    color: Color(0xffffffff),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 230,
+                                margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                child: Text(
+                                  "${snapshot.data![index].cName}",
+                                  style: TextStyle(
+                                      color: Color(0xFFffffff), fontSize: 20),
+                                ),
+                              ),
+                              Container(
+                                child: IconButton(
+                                    onPressed: () {
+                                      print("${snapshot.data![index].cNo}");
+                                      Navigator.pushNamed(
+                                        context,
+                                        '/grouplist',
+                                        arguments: {"cNo": snapshot.data![index].cNo},
+                                      );
+                                    },
+                                    icon: Icon(
+                                      Icons.arrow_forward_ios,
+                                      size: 15,
+                                      color: Color(0xffffffff),
+                                    )),
+                              ),
+                            ],
                           ),
-                        ),
-                        Container(
-                          child: IconButton(
-                              onPressed: () {
-                                print("${snapshot.data![index].cNo}");
-                                Navigator.pushNamed(
-                                  context,
-                                  '/grouplist',
-                                  arguments: {"cNo": snapshot.data![index].cNo},
-                                );
-                              },
-                              icon: Icon(
-                                Icons.arrow_forward_ios,
-                                size: 15,
-                                color: Color(0xffffffff),
-                              )),
                         ),
                       ],
-                    ),
-                  ),
-                ],
-              );
-            },
-            shrinkWrap: true,
+                    );
+                  },
+                  shrinkWrap: true,
+
+                ),
+              ),
+
+            ],
           );
+
+
         } // 데이터가있으면
       },
     );

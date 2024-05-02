@@ -10,8 +10,7 @@ class DetailPage extends StatelessWidget {
 
     return _DetailPage();
   }
-}//class
-
+} //class
 
 //---------------------동적인 내용 설정----------------------------
 //등록
@@ -24,12 +23,20 @@ class _DetailPage extends StatefulWidget {
 
 //할일
 class _DetailPageState extends State<_DetailPage> {
-  //즐겨찾기 추가 삭제 바꾸기
-  bool isFavorite = true; // 초기 상태는 true로 설정
 
+
+  //즐겨찾기 추가 삭제 바꾸기
+
+  late bool favorite = false;
+
+  int ANo=0;
   void toggleFavorite() {
     setState(() {
-      isFavorite = !isFavorite; // 현재 상태를 반대로 변경
+      favorite = !favorite;
+      print(favorite);
+      print("눌러어아아ㅏㅏㅏㅏㅏㅏㅏㅏ");
+      print(ANo);
+      getFavorite(ANo);
     });
   }
 
@@ -52,16 +59,18 @@ class _DetailPageState extends State<_DetailPage> {
   }
 
   String _buildLabel() {
-    return isFavorite ? '즐겨찾기 삭제' : '즐겨찾기 추가';
+    return favorite ? '즐겨찾기 삭제' : '즐겨찾기 추가';
   }
 
   Color _buildIconColor() {
-    return isFavorite ? Colors.yellow : Color(0xffa0f2f2); // 상태에 따라 아이콘 색상 변경
+    return favorite ? Colors.yellow : Color(0xffa0f2f2); // 상태에 따라 아이콘 색상 변경
   }
 
   Color _buildLabelColor() {
-    return isFavorite ? Colors.yellow : Color(0xffa0f2f2); // 상태에 따라 라벨 색상 변경
+    return favorite ? Colors.yellow : Color(0xffa0f2f2); // 상태에 따라 라벨 색상 변경
   }
+
+
   /////////////////////여기까지 즐겨찾기
 
   //공통변수 -data()같은 개념
@@ -82,6 +91,8 @@ class _DetailPageState extends State<_DetailPage> {
     // 'aNo' 키를 사용하여 값을 추출합니다.
     late final aNo = args['aNo'];
 
+    ANo = aNo;
+
     //aNo 데이터를 서버로 부터 가져오기
     detailPageFuture = getPersonDetail(aNo);
 
@@ -94,292 +105,309 @@ class _DetailPageState extends State<_DetailPage> {
           return Center(child: Text('데이터를 불러오는 데 실패했습니다.'));
         } else if (!snapshot.hasData) {
           return Center(child: Text('데이터가 없습니다.'));
-        } else { //데이터가 있으면
-              return Scaffold(
-                appBar: AppBar(
-                  backgroundColor: Color(0xFF0F0E36),
-
-                  leading: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: Color(0xFF81D1FB),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop(); // 뒤로가기 버튼 클릭 시 이전 화면으로 이동
-                    },
-                  ),
+        } else {
+          //데이터가 있으면
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Color(0xFF0F0E36),
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Color(0xFF81D1FB),
                 ),
-                body: Container(
-                    color: Color(0xFF0f0e36),
-                    padding: EdgeInsets.all(30),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 450,
-                          height: 350,
-                          padding: EdgeInsets.all(15),
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                          decoration: BoxDecoration(
-                              color: Color(0xFF161443),
-                              borderRadius: BorderRadius.circular(20)
+                onPressed: () {
+                  Navigator.of(context).pop(); // 뒤로가기 버튼 클릭 시 이전 화면으로 이동
+                },
+              ),
+            ),
+            body: Container(
+                color: Color(0xFF0f0e36),
+                padding: EdgeInsets.all(30),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 450,
+                      height: 350,
+                      padding: EdgeInsets.all(15),
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                      decoration: BoxDecoration(
+                          color: Color(0xFF161443),
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Column(
+                        children: [
+                          ClipRRect(
+                              borderRadius: BorderRadius.circular(70),
+                              child: Container(
+                                width: 90,
+                                height: 90,
+                                color: Colors.cyanAccent,
+                              )),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                            child: Text(
+                              "${snapshot.data!.name}",
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
                           ),
-                          child: Column(
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              ClipRRect(
-                                  borderRadius: BorderRadius.circular(70),
-                                  child: Container(
-                                    width: 90,
-                                    height: 90,
-                                    color: Colors.cyanAccent,
-                                  )
+                              Text(
+                                "휴대전화 ",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
                               ),
-
-                              Container(
-                                margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                                child: Text("${snapshot.data!.name}",
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white
-                                  ),
-
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("휴대전화 ",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white
-                                    ),),
-                                  Text("${snapshot.data!.hp}",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white
-                                    ),)
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                    child: IconButton(onPressed: () {
-                                      print("영상통화 버튼 누름");
-                                    }, icon: Icon(Icons.call_rounded, color: Color(
-                                        0xFFffffff),),
-                                      style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all(Color(
-                                            0xffE7CA14)),
-                                      ),),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                    child: IconButton(onPressed: () {
-                                      print("메세지 버튼 누름");
-                                      showDialog(
-                                          context: context, // 현재 BuildContext를 넘겨줘야 합니다.
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title: Text('제목'),
-                                            );
-                                          }
-                                      );
-                                    }, icon: Icon(Icons.message_rounded, color: Color(
-                                        0xFFffffff)),
-                                      style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all(Color(
-                                            0xffE8952F)),
-                                      ),),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                    child: IconButton(onPressed: () {
-                                      print("영상통화 버튼 누름");
-                                    }, icon: Icon(Icons.video_call_rounded, color: Color(
-                                        0xFFffffff)),
-                                      style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all(Color(
-                                            0xffE7CA14)),
-                                      ),),
-                                  )
-                                ],
+                              Text(
+                                "${snapshot.data!.hp}",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
                               )
                             ],
                           ),
-
-                        ),
-                        Container(
-                          width: 450,
-                          height: 250,
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                          padding: EdgeInsets.fromLTRB(20, 20, 0, 20),
-                          decoration: BoxDecoration(
-                              color: Color(0xFF161443),
-                              borderRadius: BorderRadius.circular(10)
-                          ),
-                          child:
-                          Column(
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    child: Text("그룹", style: TextStyle(
-                                        fontSize: 17,
-                                        color: Colors.white
-                                    ),),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(45, 0, 0, 0),
-                                    child: Text("친구", style: TextStyle(
-                                        fontSize: 17,
-                                        color: Colors.white
-                                    ),),
-                                  ),
-                                ],
-                              ),
-
                               Container(
-                                margin: EdgeInsets.fromLTRB(0, 25, 20, 25),
-                                padding: EdgeInsets.fromLTRB(0, 25, 0, 25),
-                                decoration: BoxDecoration(border: Border(
+                                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                child: IconButton(
+                                  onPressed: () {
+                                    print("영상통화 버튼 누름");
+                                  },
+                                  icon: Icon(
+                                    Icons.call_rounded,
+                                    color: Color(0xFFffffff),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Color(0xffE7CA14)),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                child: IconButton(
+                                  onPressed: () {
+                                    print("메세지 버튼 누름");
+                                    showDialog(
+                                        context: context,
+                                        // 현재 BuildContext를 넘겨줘야 합니다.
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: Text('제목'),
+                                          );
+                                        });
+                                  },
+                                  icon: Icon(Icons.message_rounded,
+                                      color: Color(0xFFffffff)),
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Color(0xffE8952F)),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                child: IconButton(
+                                  onPressed: () {
+                                    print("영상통화 버튼 누름");
+                                  },
+                                  icon: Icon(Icons.video_call_rounded,
+                                      color: Color(0xFFffffff)),
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Color(0xffE7CA14)),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: 450,
+                      height: 250,
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      padding: EdgeInsets.fromLTRB(20, 20, 0, 20),
+                      decoration: BoxDecoration(
+                          color: Color(0xFF161443),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                child: Text(
+                                  "그룹",
+                                  style: TextStyle(
+                                      fontSize: 17, color: Colors.white),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(45, 0, 0, 0),
+                                child: Text(
+                                  "친구",
+                                  style: TextStyle(
+                                      fontSize: 17, color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(0, 25, 20, 25),
+                            padding: EdgeInsets.fromLTRB(0, 25, 0, 25),
+                            decoration: BoxDecoration(
+                                border: Border(
                                     top: BorderSide(color: Colors.white12),
                                     bottom: BorderSide(color: Colors.white12))),
-                                child: Row(
+                            child: Row(
+                              children: [
+                                Container(
+                                  child: Text(
+                                    "이메일",
+                                    style: TextStyle(
+                                        fontSize: 17, color: Colors.white),
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                  child: Text(
+                                    "${snapshot.data!.email}",
+                                    style: TextStyle(
+                                        fontSize: 17, color: Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                child: Text(
+                                  "메모",
+                                  style: TextStyle(
+                                      fontSize: 17, color: Colors.white),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.fromLTRB(45, 0, 0, 0),
+                                child: Text(
+                                  "${snapshot.data!.memo}",
+                                  style: TextStyle(
+                                      fontSize: 17, color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
+            bottomNavigationBar: SizedBox(
+              height: 110,
+              child: BottomNavigationBar(
+                selectedIconTheme: IconThemeData(),
+                backgroundColor: Color(0xFF0F0E36),
+                selectedItemColor: Color(0xFFFFFC75),
+                // 선택된 아이템의 색상
+                unselectedItemColor: Color(0xFF81D1FB),
+                // 선택되지 않은 아이템의 색상
+                items: <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: GestureDetector(
+                      onTap: toggleFavorite,
+                      child: _buildIconWithLabel(),
+                    ),
+                  label: '',
+                  ),
+
+                  BottomNavigationBarItem(
+                    icon: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/modifyform',
+                            arguments: {"aNo": snapshot.data!.aNo});
+                      },
+                      child: Icon(Icons.edit),
+                    ),
+                    label: '수정',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.delete),
+                    label: '삭제',
+                  ),
+                ],
+                // selectedItemColor: Colors.amber[800],
+                onTap: (index) {
+                  if (index == 2) {
+                    showDialog(
+                        context: context, // 현재 BuildContext를 넘겨줘야 합니다.
+                        builder: (BuildContext context) {
+                          return Container(
+                            margin: EdgeInsets.fromLTRB(0, 600, 0, 0),
+                            child: AlertDialog(
+                              backgroundColor: Color(0xff0f0e36),
+                              content: Container(
+                                width: 600,
+                                height: 100,
+                                child: Column(
                                   children: [
                                     Container(
-                                      child: Text("이메일", style: TextStyle(
-                                          fontSize: 17,
-                                          color: Colors.white
-                                      ),),
+                                      width: 500,
+                                      height: 40,
+                                      margin: EdgeInsets.fromLTRB(0, 8, 0, 12),
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          print("삭제");
+                                          removePerson(aNo);
+                                        },
+                                        child: Text(
+                                          "삭제하기",
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Color(0xff888888)),
+                                      ),
                                     ),
                                     Container(
-                                      margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
-                                      child: Text("${snapshot.data!.email}", style: TextStyle(
-                                          fontSize: 17,
-                                          color: Colors.white
-                                      ),),
+                                      width: 500,
+                                      height: 40,
+                                      child: ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text(
+                                            "취소",
+                                            style: TextStyle(
+                                                color: Colors.yellow,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  Color(0xff888888))),
                                     ),
                                   ],
                                 ),
                               ),
-
-                              Row(
-                                children: [
-                                  Container(
-                                    child: Text("메모", style: TextStyle(
-                                        fontSize: 17,
-                                        color: Colors.white
-                                    ),),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(45, 0, 0, 0),
-                                    child: Text("${snapshot.data!.memo}", style: TextStyle(
-                                        fontSize: 17,
-                                        color: Colors.white
-                                    ),),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                ),
-                bottomNavigationBar: SizedBox(
-                  height: 110,
-                  child: BottomNavigationBar(
-                    selectedIconTheme: IconThemeData(),
-                    backgroundColor: Color(0xFF0F0E36),
-                    selectedItemColor: Color(0xFFFFFC75),
-                    // 선택된 아이템의 색상
-                    unselectedItemColor: Color(0xFF81D1FB),
-                    // 선택되지 않은 아이템의 색상
-                    items: <BottomNavigationBarItem>[
-                      BottomNavigationBarItem(
-                        icon: GestureDetector(
-                          onTap: toggleFavorite,
-                          child: _buildIconWithLabel(),
-                        ),
-                        label: '',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/modifyform',
-                              arguments: {
-                                "aNo": snapshot.data!.aNo
-                              }
-                            );
-                          },
-                          child: Icon(Icons.edit),
-                        ),
-                        label: '수정',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.delete),
-                        label: '삭제',
-                      ),
-                    ],
-                    // selectedItemColor: Colors.amber[800],
-                    onTap: (index) {
-                      if (index == 2) {
-                        showDialog(
-                            context: context, // 현재 BuildContext를 넘겨줘야 합니다.
-                            builder: (BuildContext context) {
-                              return Container(
-                                margin: EdgeInsets.fromLTRB(0, 600, 0, 0),
-                                child: AlertDialog(
-                                  backgroundColor: Color(0xff0f0e36),
-                                  content: Container(
-                                    width: 600,
-                                    height: 100,
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          width: 500,
-                                          height: 40,
-                                          margin: EdgeInsets.fromLTRB(0, 8, 0, 12),
-                                          child:
-                                          ElevatedButton(
-                                            onPressed: (){
-                                              print("삭제");
-                                              removePerson(aNo);
-                                            },
-                                            child: Text("삭제하기", style: TextStyle(color: Colors.red, fontSize: 15, fontWeight: FontWeight.bold),),style: ElevatedButton.styleFrom(backgroundColor: Color(
-                                              0xff888888)),),
-                                        ),
-                                        Container(
-                                          width: 500,
-                                          height: 40,
-                                          child:
-                                          ElevatedButton(
-                                              onPressed: (){
-                                                Navigator.of(context).pop();
-                                              },
-                                              child:
-                                              Text("취소", style: TextStyle(color: Colors.yellow, fontSize: 15, fontWeight: FontWeight.bold),),style: ElevatedButton.styleFrom(backgroundColor: Color(
-                                              0xff888888))),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }
-                        );
-                      } //if
-                    },
-                  ),
-                ),
-              );
+                            ),
+                          );
+                        });
+                  } //if
+                },
+              ),
+            ),
+          );
         } // 데이터가있으면
       },
     );
-  }// 그림그리기
-
+  } // 그림그리기
 
 //상세정보 데이터 가져오기 return
   Future<AddressbookVo> getPersonDetail(int aNo) async {
@@ -402,7 +430,8 @@ class _DetailPageState extends State<_DetailPage> {
         //접속성공 200 이면
         //print(response.data); // json->map 자동변경
 
-        AddressbookVo detailVo = AddressbookVo.fromJson(response.data["apiData"]);
+        AddressbookVo detailVo =
+            AddressbookVo.fromJson(response.data["apiData"]);
 
         print("===");
 
@@ -415,11 +444,10 @@ class _DetailPageState extends State<_DetailPage> {
       //예외 발생
       throw Exception('Failed to load person: $e');
     }
-  }//정보가져오기함수
+  } //정보가져오기함수
 
   //현재 데이터 삭제
   Future<void> removePerson(int aNo) async {
-
     print(aNo);
     print("removePerson(): 삭제 중");
     try {
@@ -439,9 +467,11 @@ class _DetailPageState extends State<_DetailPage> {
       if (response.statusCode == 200) {
         //접속성공 200 이면
         print(response.data); // json->map 자동변경
-        Navigator.pushNamed( context, '/addresspage', );
+        Navigator.pushNamed(
+          context,
+          '/addresspage',
+        );
         //return PersonVo.fromJson(response.data["apiData"]);
-
       } else {
         //접속실패 404, 502등등 api서버 문제
         throw Exception('api 서버 문제');
@@ -450,7 +480,53 @@ class _DetailPageState extends State<_DetailPage> {
       //예외 발생
       throw Exception('Failed to load person: $e');
     }
-  }//삭제함수
+  } //삭제함수
 
+  // 즐겨찾기
+  Future<AddressbookVo> getFavorite(int ANo) async {
+    int Favorite=0;
 
+    print("*********************즐겨찾기추가***********************");
+
+    print(ANo);
+    print(favorite);
+    print("-----------------------------------------------------------");
+    if(favorite ==true){
+      Favorite = 1;
+      print("즐겨찾기추가");
+      print(Favorite);
+      print("==============");
+
+    }else{
+      Favorite =0;
+      print("즐겨찾기해제");
+      print(Favorite);
+      print("==============");
+
+    }
+
+    try {
+      var dio = Dio();
+      dio.options.headers['Content-Type'] = 'application/json';
+
+      final response = await dio.put(
+        'http://localhost:9099/api/hsModify',
+
+        data: {
+          'aNo' : ANo,
+          'favorite': Favorite,
+        }
+      );
+
+      if (response.statusCode == 200) {
+        print(response.data); // json->map 자동변경
+        return AddressbookVo.fromJson(response.data["apiData"]);
+
+      } else {
+        throw Exception('api 서버 문제');
+      }
+    } catch (e) {
+      throw Exception('Failed to load person: $e');
+    }
+  }
 }

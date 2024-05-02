@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_addressbook/addressbookVo.dart';
+import 'package:flutter_addressbook/category.dart';
 
 class GroupListPage extends StatelessWidget {
   const GroupListPage({Key? key});
@@ -18,7 +19,10 @@ class GroupListPage extends StatelessWidget {
             color: Color(0xFF81D1FB),
           ),
           onPressed: () {
-            Navigator.of(context).pop(); // 뒤로가기 버튼 클릭 시 이전 화면으로 이동
+            Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CategoryPage()))
+                .then((value) {
+            }); // 뒤로가기 버튼 클릭 시 이전 화면으로 이동
           },
         ),
       ),
@@ -42,7 +46,7 @@ class _GroupListPageState extends State<_GroupListPage> {
   // 변수 (미래의 데이터가 담김)
   late Future<List<AddressbookVo>> addressbookVoFuture;
   late String cName = "";
-  String? inputText;
+  String? inputText = "";
 
   // 초기화 함수 (1번만 실행됨)
   @override
@@ -86,7 +90,7 @@ class _GroupListPageState extends State<_GroupListPage> {
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      margin: EdgeInsets.fromLTRB(30, 10, 0, 10),
+                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                       child: Text(
                         "${cName}",
                         style: TextStyle(
@@ -94,18 +98,6 @@ class _GroupListPageState extends State<_GroupListPage> {
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        print("그룹편집버튼클릭");
-                        Navigator.pushNamed(context, '/groupeditform',
-                            arguments: {"cNo": cNo});
-                      },
-                      icon: Icon(
-                        Icons.edit,
-                        size: 20,
-                        color: Color(0xFF81D1FB),
                       ),
                     ),
                   ],
@@ -122,33 +114,30 @@ class _GroupListPageState extends State<_GroupListPage> {
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      width: 360,
-                      height: 45,
-                      // margin: EdgeInsets.fromLTRB(15,0,0,0),
-                      padding: const EdgeInsets.all(5.0),
-                      child: SearchBar(
-                        backgroundColor:
-                            MaterialStatePropertyAll(Color(0xFF161443)),
-                        trailing: [
-                          IconButton(
-                            onPressed: () {
-                              print("검색");
-                              print(inputText);
-                            },
-                            icon: Icon(Icons.search),
-                          )
-                        ],
-                        shape: MaterialStateProperty.all(
-                            ContinuousRectangleBorder(
-                                borderRadius: BorderRadius.circular(0))),
-                        textStyle: MaterialStateProperty.all(
-                            TextStyle(color: Color(0xffffffff))),
-                        hintText: "검색",
-
-
+                      child: IconButton(
+                        onPressed: () {
+                          print("검색페이지이동");
+                        },
+                        icon: Icon(
+                          Icons.search,
+                          size: 20,
+                          color: Color(0xFF81D1FB),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        print("그룹편집버튼클릭");
+                        Navigator.pushNamed(context, '/groupeditform',
+                            arguments: {"cNo": cNo});
+                      },
+                      icon: Icon(
+                        Icons.edit,
+                        size: 20,
+                        color: Color(0xFF81D1FB),
                       ),
                     ),
                   ],
