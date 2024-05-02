@@ -45,7 +45,7 @@ class _PersonGroupInsertState extends State<_PersonGroupInsert> {
   //변수
   late Future<List<AddressbookVo>> groupListFuture;
   late List<dynamic> _choiceGNoList =[];
-  late List<dynamic> _lastchoicegNoList = [];
+  late List<int> _lastchoicegNoList = [];
 
   @override
   void initState() {
@@ -148,12 +148,9 @@ class _PersonGroupInsertState extends State<_PersonGroupInsert> {
                   //print(_choiceGNoList);
                   for(int i = 0; i < _choiceGNoList.length; i++){
                     if(_choiceGNoList[i]["tf"] == true){
-                      var lastchoiceVo = {
-                        "LgNo": _choiceGNoList[i]["gNo"],
-                        "LgName": _choiceGNoList[i]["gName"]
-                      };
 
-                      _lastchoicegNoList.add(lastchoiceVo);
+
+                      _lastchoicegNoList.add(_choiceGNoList[i]["gNo"]);
                     }
                   }
                   print(_lastchoicegNoList);

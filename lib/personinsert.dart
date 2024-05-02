@@ -33,7 +33,7 @@ class _PersonInsertForm extends StatefulWidget {
 
 
 class _PersonInsertFormState extends State<_PersonInsertForm> {
-  late List<dynamic> lastChoiceGNoList;
+  late List<int> lastChoiceGNoList;
   late int gender = 1;
 
   _PersonInsertFormState(this.lastChoiceGNoList);
@@ -205,7 +205,7 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
                     final result =
                         await Navigator.pushNamed(context, '/persongroupinsert');
 
-                    lastChoiceGNoList = result as List<dynamic>;
+                    lastChoiceGNoList = result as List<int>;
                   },
                   child: Row(
                     children: [
@@ -278,7 +278,6 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
                     onPressed: () {
                       print(lastChoiceGNoList.length);
                       print("=====================");
-                      print(WriteAddressNo(_nameController.text));
                       print("=====================");
                     },
                     child: Text("확인")),
@@ -318,8 +317,6 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
                       TextButton.styleFrom(backgroundColor: Color(0x0f0e36)),
                       onPressed: () {
                         writeAddressInsert();
-                        WriteAddressNo(_nameController.text);
-                        print(WriteAddressNo(_nameController.text));
                         //Navigator.of(context).pop();
                       },
                       child: Text("등록",
@@ -340,51 +337,10 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
   }
 
   //
-  Future<AddressbookVo> WriteAddressNo(String addName) async {
-    try {
-      /*----요청처리-------------------*/
-      //Dio 객체 생성 및 설정
-      var dio = Dio();
 
-      // 헤더설정:json으로 전송
-      dio.options.headers['Content-Type'] = 'application/json';
-
-      // 서버 요청
-      final response = await dio.get(
-        'http://localhost:9099/api/jh/${addName}',
-        /*
-        queryParameters: {
-          // 예시 파라미터
-          'page': 1,
-          'keyword': '홍길동',
-        },
-        data: {
-          // 예시 data  map->json자동변경
-          'id': 'aaa',
-          'pw': '값',
-        },
-        */
-      );
-
-      /*----응답처리-------------------*/
-      if (response.statusCode == 200) {
-        //접속성공 200 이면
-        print(response.data["apiData"]);
-         // json->map 자동변경
-
-        return AddressbookVo.fromJson(response.data["apiData"]);
-      } else {
-        //접속실패 404, 502등등 api서버 문제
-        throw Exception('api 서버 문제');
-      }
-    } catch (e) {
-      //예외 발생
-      throw Exception('Failed to load person: $e');
-    }
-  }
 
   //주소등록
-  Future<void> writeAddressInsert() async {
+  Future<AddressbookVo> writeAddressInsert() async {
     try {
       /*----요청처리-------------------*/
       //Dio 객체 생성 및 설정
@@ -407,7 +363,8 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
           'hp': _hpController.text,
           'gender': gender,
           'email': _emailController.text,
-          'memo': _memoController.text
+          'memo': _memoController.text,
+          'groupNoList': lastChoiceGNoList
         },
 
       );
@@ -416,8 +373,11 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
       if (response.statusCode == 200) {
         //접속성공 200 이면
         print(response.data["apiData"]); // json->map 자동변경
-        //return PersonVo.fromJson(response.data["apiData"]);
 
+
+
+        //return PersonVo.fromJson(response.data["apiData"]);
+        return AddressbookVo.fromJson(response.data["apiData"]);
         //Navigator.pushNamed( context, "/list");
       } else {
         //접속실패 404, 502등등 api서버 문제
