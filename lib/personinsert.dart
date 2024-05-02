@@ -273,15 +273,7 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
                       border: InputBorder.none),
                 ),
               ),
-              Container(
-                child: ElevatedButton(
-                    onPressed: () {
-                      print(lastChoiceGNoList.length);
-                      print("=====================");
-                      print("=====================");
-                    },
-                    child: Text("확인")),
-              )
+
             ],
           ),
         ),
@@ -317,7 +309,8 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
                       TextButton.styleFrom(backgroundColor: Color(0x0f0e36)),
                       onPressed: () {
                         writeAddressInsert();
-                        //Navigator.of(context).pop();
+
+
                       },
                       child: Text("등록",
                           style: TextStyle(
@@ -377,6 +370,8 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
 
 
         //return PersonVo.fromJson(response.data["apiData"]);
+        Navigator.pushNamed(context,'/addresspage');
+
         return AddressbookVo.fromJson(response.data["apiData"]);
         //Navigator.pushNamed( context, "/list");
       } else {

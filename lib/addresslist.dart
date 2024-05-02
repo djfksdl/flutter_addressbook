@@ -168,12 +168,19 @@ class _AddressListState extends State<_AddressList> {
   @override
   void initState() {
     super.initState();
-    addressListFuture = getAddressList();
+
+    print("----initState-----");
   }
 
   //그림그리는곳(build)
   @override
   Widget build(BuildContext context) {
+    print("----build-----");
+    setState(() {
+      print("----setState-----");
+      addressListFuture = getAddressList();
+    });
+
     return FutureBuilder(
       future: addressListFuture, //Future<> 함수명, 으로 받은 데이타
       builder: (context, snapshot) {
@@ -184,7 +191,9 @@ class _AddressListState extends State<_AddressList> {
         } else if (!snapshot.hasData) {
           return Center(child: Text('데이터가 없습니다.'));
         } else { //데이터가 있으면
+          print("----FutureBuilder-----");
           return ListView.builder(
+
               itemExtent: 90, //충돌안나게 아이템 높이 설정 -> {}뒤에 shrinkWrap:true도 설정해야함
               itemCount: snapshot.data!.length, //몇개 가지고있는지 꼭 알려줘야함.
               itemBuilder: (BuildContext context, int index) {
@@ -247,6 +256,7 @@ class _AddressListState extends State<_AddressList> {
 
 //리스트 데이터 가져오기 return
   Future<List<AddressbookVo>> getAddressList() async {
+
     print("getAddressList(): 데이터 가져오기");
     try {
       /*----요청처리-------------------*/
