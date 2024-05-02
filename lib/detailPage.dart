@@ -358,6 +358,7 @@ class _DetailPageState extends State<_DetailPage> {
       if (response.statusCode == 200) {
         //접속성공 200 이면
         //print(response.data); // json->map 자동변경
+
         AddressbookVo detailVo = AddressbookVo.fromJson(response.data["apiData"]);
 
         print("===");
