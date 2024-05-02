@@ -16,6 +16,8 @@ class AddressPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    _AddressListState _addressListState = _AddressListState();
     return Scaffold(
         backgroundColor: Color(0xFF0F0E36),
         body: CustomScrollView(
@@ -54,12 +56,30 @@ class AddressPage extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                child: Text(
-                                  "저장된 연락처 38개",
-                                  style: TextStyle(
-                                    // color: Color(0xFFffffff),
-                                    fontSize: 10,
-                                  ),
+                                child: FutureBuilder<List<AddressbookVo>>(
+                                  future: _addressListState.getAddressList(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Center(
+                                          child: CircularProgressIndicator());
+                                    } else if (snapshot.hasError) {
+                                      return Center(
+                                          child: Text(
+                                              '데이터를 불러오는 데 실패했습니다.'));
+                                    } else if (!snapshot.hasData ||
+                                        snapshot.data!.isEmpty) {
+                                      return Center(
+                                          child: Text('데이터가 없습니다.'));
+                                    } else {
+                                      return Text(
+                                        "저장된 연락처 ${snapshot.data!.length}개",
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                        ),
+                                      );
+                                    }
+                                  },
                                 ),
                               ),
                             ],

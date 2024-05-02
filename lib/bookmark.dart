@@ -131,19 +131,6 @@ class BookmarkPage extends StatelessWidget {
               color: Color(0xFF0F0E36),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        child: Text("ㄱ",
-                          style: TextStyle(
-                              color: Color(0xFF5158F0),
-                              fontSize: 20
-                          ),),
-                      ),
-
-                    ],
-                  ),
                   Container(
                       padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
                       decoration: BoxDecoration(
@@ -220,8 +207,11 @@ class _BookmarkListState extends State<_BookmarkList> {
                     padding: EdgeInsets.only(bottom: 10),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(
-                            context, '/detailpage');
+                        Navigator.pushNamed(context, '/detailpage',
+                            arguments: {
+                              "aNo": snapshot.data![index].aNo
+                            }
+                        );
                       },
                       child: Row(
                         children: [
