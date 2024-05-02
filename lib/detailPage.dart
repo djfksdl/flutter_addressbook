@@ -24,6 +24,45 @@ class _DetailPage extends StatefulWidget {
 
 //할일
 class _DetailPageState extends State<_DetailPage> {
+  //즐겨찾기 추가 삭제 바꾸기
+  bool isFavorite = true; // 초기 상태는 true로 설정
+
+  void toggleFavorite() {
+    setState(() {
+      isFavorite = !isFavorite; // 현재 상태를 반대로 변경
+    });
+  }
+
+  Widget _buildIconWithLabel() {
+    return Container(
+      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+      child: Column(
+        children: [
+          Icon(Icons.star, color: _buildIconColor()), // 아이콘 색상 설정
+          SizedBox(width: 10), // 아이콘과 라벨 사이 간격 조절
+          Text(
+            _buildLabel(),
+            style: TextStyle(
+              color: _buildLabelColor(), // 라벨 색상 설정
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _buildLabel() {
+    return isFavorite ? '즐겨찾기 삭제' : '즐겨찾기 추가';
+  }
+
+  Color _buildIconColor() {
+    return isFavorite ? Colors.yellow : Color(0xffa0f2f2); // 상태에 따라 아이콘 색상 변경
+  }
+
+  Color _buildLabelColor() {
+    return isFavorite ? Colors.yellow : Color(0xffa0f2f2); // 상태에 따라 라벨 색상 변경
+  }
+  /////////////////////여기까지 즐겨찾기
 
   //공통변수 -data()같은 개념
   late Future<AddressbookVo> detailPageFuture;
@@ -260,8 +299,11 @@ class _DetailPageState extends State<_DetailPage> {
                     // 선택되지 않은 아이템의 색상
                     items: <BottomNavigationBarItem>[
                       BottomNavigationBarItem(
-                        icon: Icon(Icons.star),
-                        label: '즐겨찾기 추가',
+                        icon: GestureDetector(
+                          onTap: toggleFavorite,
+                          child: _buildIconWithLabel(),
+                        ),
+                        label: '',
                       ),
                       BottomNavigationBarItem(
                         icon: GestureDetector(
@@ -337,6 +379,7 @@ class _DetailPageState extends State<_DetailPage> {
       },
     );
   }// 그림그리기
+
 
 //상세정보 데이터 가져오기 return
   Future<AddressbookVo> getPersonDetail(int aNo) async {
