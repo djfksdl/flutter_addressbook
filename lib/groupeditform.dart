@@ -9,55 +9,7 @@ class groupEditForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff0f0e36),
-      body: _groupEditForm(),
-      // bottomNavigationBar: Container(
-      //   child: Row(
-      //     children: [
-      //       Expanded(
-      //         flex: 1,
-      //         child: Container(
-      //           width: 160,
-      //           height: 80,
-      //           padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-      //           child: TextButton(
-      //             onPressed: () {
-      //               print("취소 버튼 클릭");
-      //               Navigator.of(context).pop();
-      //             },
-      //             child: Text(
-      //               "취소",
-      //               style: TextStyle(color: Color(0xff81d1fb),
-      //                   fontSize: 20,
-      //                   fontWeight: FontWeight.bold),
-      //
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-      //       Expanded(
-      //         flex: 1,
-      //         child: Container(
-      //           width: 160,
-      //           height: 80,
-      //           padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-      //           child: TextButton(
-      //             onPressed: () {
-      //               print("수정 버튼 클릭");
-      //               putCategoryByNo(int cNo);
-      //               Navigator.of(context).pop();
-      //             },
-      //             child: Text(
-      //               "수정",
-      //               style: TextStyle(color: Color(0xff81d1fb),
-      //                   fontSize: 20,
-      //                   fontWeight: FontWeight.bold),
-      //             ),
-      //           ),
-      //         ),
-      //       )
-      //     ],
-      //   ),
-      // ),
+      body: _groupEditForm()
     );
   }
 }
@@ -85,13 +37,14 @@ class _groupEditFormState extends State<_groupEditForm> {
   //화면 그리기
   @override
   Widget build(BuildContext context) {
+    int cNo;
+
     //ModalRoute를 통해 현재 페이지에 전달된 arguments 가져오기
-    //late final args=ModalRoute.of(context)!.settings.arguments as Map;
+    late final args=ModalRoute.of(context)!.settings.arguments as Map;
 
     //cNo를 사용하여 값 추출하기
-    //cNo=args["cNo"];
+    cNo=args["cNo"];
 
-    int cNo = 1;
     //cNo의 데이터를 서버로부터 가져오는 함수 실행
     voFuture = getCategoryByNo(cNo);
 
@@ -285,7 +238,7 @@ class _groupEditFormState extends State<_groupEditForm> {
 
         //받은값을 input의 변화를 감지하는 변수에 전달
         //value값은 _nameController.text = 값 으로 넣는다
-        //_groupNameController.text = aVo.cName!; - !!!!!!!!!!!!!!!
+        //_groupNameController.text = aVo.cName!;
         print("---------ggg------------------");
         return aVo;
 
@@ -332,7 +285,7 @@ class _groupEditFormState extends State<_groupEditForm> {
         print(response.data); // json->map 자동변경
         print("------------------응답 처리------------------");
 
-        Navigator.pushNamed(context, "/grouplist");
+        //Navigator.pushNamed(context, "/grouplist");
         print("해냈다");
       } else {
         //접속실패 404, 502등등 api서버 문제
