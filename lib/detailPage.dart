@@ -35,11 +35,11 @@ class _DetailPageState extends State<_DetailPage> {
 
   Widget _buildIconWithLabel() {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+      margin: EdgeInsets.fromLTRB(0, 25, 0, 0),
       child: Column(
         children: [
           Icon(Icons.star, color: _buildIconColor()), // 아이콘 색상 설정
-          SizedBox(width: 10), // 아이콘과 라벨 사이 간격 조절
+          SizedBox(height: 3), // 아이콘과 라벨 사이 간격 조절
           Text(
             _buildLabel(),
             style: TextStyle(
@@ -289,7 +289,7 @@ class _DetailPageState extends State<_DetailPage> {
                     )
                 ),
                 bottomNavigationBar: SizedBox(
-                  height: 100,
+                  height: 110,
                   child: BottomNavigationBar(
                     selectedIconTheme: IconThemeData(),
                     backgroundColor: Color(0xFF0F0E36),
