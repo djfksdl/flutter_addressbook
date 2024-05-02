@@ -16,19 +16,7 @@ class PersonGroupInsert extends StatelessWidget {
           "그룹선택",
           style: TextStyle(fontSize: 18, color: Color(0xFF81D1FB)),
         ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Color(0xFF81D1FB),
-          ),
-          onPressed: () {
-            //_PersonGroupInsertState().insertPersonGroup();
-
-
-
-            // 뒤로가기 버튼 클릭 시 이전 화면으로 이동
-          },
-        ),
+        leading: null
       ),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
@@ -57,7 +45,7 @@ class _PersonGroupInsertState extends State<_PersonGroupInsert> {
   //변수
   late Future<List<AddressbookVo>> groupListFuture;
   late List<dynamic> _choiceGNoList =[];
-  late List<int> _lastchoicegNoList = [];
+  late List<dynamic> _lastchoicegNoList = [];
 
   @override
   void initState() {
@@ -160,11 +148,18 @@ class _PersonGroupInsertState extends State<_PersonGroupInsert> {
                   //print(_choiceGNoList);
                   for(int i = 0; i < _choiceGNoList.length; i++){
                     if(_choiceGNoList[i]["tf"] == true){
-                      _lastchoicegNoList.add(_choiceGNoList[i]["gNo"]);
+                      var lastchoiceVo = {
+                        "LgNo": _choiceGNoList[i]["gNo"],
+                        "LgName": _choiceGNoList[i]["gName"]
+                      };
+
+                      _lastchoicegNoList.add(lastchoiceVo);
                     }
                   }
                   print(_lastchoicegNoList);
-                  Navigator.of(context).pop(_lastchoicegNoList);
+
+                  Navigator.pop(context, _lastchoicegNoList);
+                  //Navigator.of(context).pop(_lastchoicegNoList);
                 },
                 child: Text("선택완료")),
             )
