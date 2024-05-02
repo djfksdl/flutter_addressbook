@@ -77,7 +77,7 @@ class _ModifyFormState extends State<_ModifyForm> {
 
   //공통변수-data()같은 개념
 
-  late Future<AddressbookVo> mFormFuture;
+  late Future<List<AddressbookVo>> mgListFuture;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _hpController = TextEditingController();
@@ -93,7 +93,7 @@ class _ModifyFormState extends State<_ModifyForm> {
   @override
   void initState() {
     super.initState();
-
+    // mgListFuture = getPersonByaNo(aNo);
 
   } //그림그리는곳(build)
   @override
@@ -105,10 +105,10 @@ class _ModifyFormState extends State<_ModifyForm> {
     // print(aNo);
 
     //aNo데이터를 서버로부터 가져오기 - 초기화에서 불러오면 안됨쓰: aNo를 인식못하니까
-    mFormFuture = getPersonByNo(aNo);
+    mgListFuture = getPersonByaNo(aNo);
 
      return FutureBuilder(
-       future: mFormFuture, //Future<> 함수명, 으로 받은 데이타
+       future: mgListFuture, //Future<> 함수명, 으로 받은 데이타
        builder: (context, snapshot) {
          if (snapshot.connectionState == ConnectionState.waiting) {
            return Center(child: CircularProgressIndicator());
@@ -117,152 +117,162 @@ class _ModifyFormState extends State<_ModifyForm> {
            } else if (!snapshot.hasData) {
              return Center(child: Text('데이터가 없습니다.'));
            } else { //데이터가 있으면 _nameController.text = snapshot.data!.name;
-           return Column(
-             children: [
-               Center(
-                   child: Container(
-                       width: 130,
-                       height: 130,
-                       margin: EdgeInsets.all(20),
-                       decoration: BoxDecoration(
-                         color: Color(0xFF55FFAD),
-                         borderRadius: BorderRadius.circular(300),
-                       )
-                   )
-               ),
-               Container(
-                 color: Color(0xFF161443),
-                 margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
-                 child: TextFormField(
-                   style: TextStyle(color: Color(0xFFffffff)),
-                   controller: _nameController,
-                   decoration: InputDecoration(
-                       icon: Container(
-                         width: 20,
-                         margin: EdgeInsets.only(left: 10),
-                         child: Icon(Icons.person,color: Color(0xFFffffff),),
-                       ),
-                       // labelText:'${snapshot.data!.name}',
-                       // labelStyle: TextStyle(color: Color(0xFFffffff)),
-                       hintText: '${snapshot.data!.name}',
-                       hintStyle: TextStyle(color: Color(0xFFffffff)),
-                       border: InputBorder.none
-                   ),
+           return SingleChildScrollView(
+             child: Column(
+               children: [
+                 Center(
+                     child: Container(
+                         width: 130,
+                         height: 130,
+                         margin: EdgeInsets.all(20),
+                         decoration: BoxDecoration(
+                           color: Color(0xFF55FFAD),
+                           borderRadius: BorderRadius.circular(300),
+                         )
+                     )
                  ),
-               ),
-               Container(
-                 color: Color(0xFF161443),
-                 margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
-                 child: TextFormField(
-                   style: TextStyle(color: Color(0xFFffffff)),
-                   controller: _hpController,
-                   decoration: InputDecoration(
-                       icon: Container(
-                         width: 20,
-                         margin: EdgeInsets.only(left: 10),
-                         child: Icon(Icons.call,color: Color(0xFFffffff),),
-                       ),
-                       hintText: '${snapshot.data!.hp}',
-                       hintStyle: TextStyle(color: Color(0xFFffffff)),
-                       border: InputBorder.none
-                   ),
-                 ),
-               ),
-               Container(
-                 color: Color(0xFF161443),
-                 margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
-                 child: TextFormField(
-                   readOnly: true,
-                   style: TextStyle(color: Color(0xFFffffff)),
-                   controller: _genderController,
-                   decoration: InputDecoration(
-                       icon: Container(
-                         width: 20,
-                         margin: EdgeInsets.only(left: 10),
-                         child: Icon(Icons.wc,color: Color(0xFFffffff),),
-                       ),
-                       hintText: '${snapshot.data!.gender}',
-                       hintStyle: TextStyle(color: Color(0xFFffffff)),
-                       border: InputBorder.none
-                   ),
-                 ),
-               ),
-
-               Container(
-                 color: Color(0xFF161443),
-                 margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
-                 child: TextFormField(
-                   style: TextStyle(color: Color(0xFFffffff)),
-                   controller: _emailController,
-                   decoration: InputDecoration(
-                       icon: Container(
-                         width: 20,
-                         margin: EdgeInsets.only(left: 10),
-                         child: Icon(Icons.mail,color: Color(0xFFffffff),),
-                       ),
-                       hintText: '${snapshot.data!.email}',
-                       hintStyle: TextStyle(color: Color(0xFFffffff)),
-                       border: InputBorder.none
-                   ),
-                 ),
-               ),
-               Container(
-                 height: 60,
-                 margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
-                 child: ElevatedButton(
-                   style: ElevatedButton.styleFrom(
-                     backgroundColor: Color(0xFF161443),
-                     shape: RoundedRectangleBorder(
-                         borderRadius: BorderRadius.zero
-                     ),
-                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                     padding: EdgeInsets.only(left:13),
-                   ),
-                   onPressed: (){
-                     // print("클릭");
-                     Navigator.pushNamed(context, '/persongroupinsert');
-                   },
-                   child: Row(
-                     children: [
-                       Container(
-                         child: Icon(Icons.group,color: Color(0xFFffffff),),
-                       ),
-                       Container(
+                 Container(
+                   color: Color(0xFF161443),
+                   margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
+                   child: TextFormField(
+                     style: TextStyle(color: Color(0xFFffffff)),
+                     controller: _nameController,
+                     decoration: InputDecoration(
+                         icon: Container(
+                           width: 20,
                            margin: EdgeInsets.only(left: 10),
-                           child: Text(
-                             "그룹",
-                             style: TextStyle(
-                                 color: Color(0xFFffffff),
-                                 fontSize: 16
+                           child: Icon(Icons.person,color: Color(0xFFffffff),),
+                         ),
+                         // labelText:'${snapshot.data!.name}',
+                         // labelStyle: TextStyle(color: Color(0xFFffffff)),
+                         hintText: '${snapshot.data![0].name}',
+                         hintStyle: TextStyle(color: Color(0xFFffffff)),
+                         border: InputBorder.none
+                     ),
+                   ),
+                 ),
+                 Container(
+                   color: Color(0xFF161443),
+                   margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
+                   child: TextFormField(
+                     style: TextStyle(color: Color(0xFFffffff)),
+                     controller: _hpController,
+                     decoration: InputDecoration(
+                         icon: Container(
+                           width: 20,
+                           margin: EdgeInsets.only(left: 10),
+                           child: Icon(Icons.call,color: Color(0xFFffffff),),
+                         ),
+                         hintText: '${snapshot.data![0].hp}',
+                         hintStyle: TextStyle(color: Color(0xFFffffff)),
+                         border: InputBorder.none
+                     ),
+                   ),
+                 ),
+                 Container(
+                   color: Color(0xFF161443),
+                   margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
+                   child: TextFormField(
+                     readOnly: true,
+                     style: TextStyle(color: Color(0xFFffffff)),
+                     controller: _genderController,
+                     decoration: InputDecoration(
+                         icon: Container(
+                           width: 20,
+                           margin: EdgeInsets.only(left: 10),
+                           child: Icon(Icons.wc,color: Color(0xFFffffff),),
+                         ),
+                         hintText: '${snapshot.data![0].gender}',
+                         hintStyle: TextStyle(color: Color(0xFFffffff)),
+                         border: InputBorder.none
+                     ),
+                   ),
+                 ),
+
+                 Container(
+                   color: Color(0xFF161443),
+                   margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
+                   child: TextFormField(
+                     style: TextStyle(color: Color(0xFFffffff)),
+                     controller: _emailController,
+                     decoration: InputDecoration(
+                         icon: Container(
+                           width: 20,
+                           margin: EdgeInsets.only(left: 10),
+                           child: Icon(Icons.mail,color: Color(0xFFffffff),),
+                         ),
+                         hintText: '${snapshot.data![0].email}',
+                         hintStyle: TextStyle(color: Color(0xFFffffff)),
+                         border: InputBorder.none
+                     ),
+                   ),
+                 ),
+                 ListView.builder(
+                    // physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemExtent: 60,
+                    itemCount: snapshot.data!.length, //몇개 가지고있는지 꼭 알려줘야함.
+                    itemBuilder: (BuildContext context, int index) {
+                     return Container(
+                       height: 60,
+                       margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
+                       child: ElevatedButton(
+                         style: ElevatedButton.styleFrom(
+                           backgroundColor: Color(0xFF161443),
+                           shape: RoundedRectangleBorder(
+                               borderRadius: BorderRadius.zero
+                           ),
+                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                           padding: EdgeInsets.only(left:13),
+                         ),
+                         onPressed: (){
+                           // print("클릭");
+                           Navigator.pushNamed(context, '/persongroupinsert');
+                         },
+                         child: Row(
+                           children: [
+                             Container(
+                               child: Icon(Icons.group,color: Color(0xFFffffff),),
                              ),
-                           )
-                       )
-                     ],
-                   ),
-                 ),
-               ),
-               Container(
-                 color: Color(0xFF161443),
-                 height: 200,
-                 margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
-                 child: TextField(
-                   style: TextStyle(color: Color(0xFFffffff)),
-                   controller: _memoController,
-                   keyboardType: TextInputType.multiline,
-                   maxLines: null,
-                   decoration: InputDecoration(
-                       icon: Container(
-                         width: 20,
-                         margin: EdgeInsets.only(left: 10),
-                         child: Icon(Icons.edit_document,color: Color(0xFFffffff),),
+                             Container(
+                                 margin: EdgeInsets.only(left: 10),
+                                 child: Text(
+                                   "${snapshot.data![index-1].cName}",
+                                   style: TextStyle(
+                                       color: Color(0xFFffffff),
+                                       fontSize: 16
+                                   ),
+                                 )
+                             )
+                           ],
+                         ),
                        ),
-                       hintText: '${snapshot.data!.memo}',
-                       hintStyle: TextStyle(color: Color(0xFFffffff)),
-                       border: InputBorder.none
+                     );
+                    }
+                 ),
+                 Container(
+                   color: Color(0xFF161443),
+                   height: 200,
+                   margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
+                   child: TextField(
+                     style: TextStyle(color: Color(0xFFffffff)),
+                     controller: _memoController,
+                     keyboardType: TextInputType.multiline,
+                     maxLines: null,
+                     decoration: InputDecoration(
+                         icon: Container(
+                           width: 20,
+                           margin: EdgeInsets.only(left: 10),
+                           child: Icon(Icons.edit_document,color: Color(0xFFffffff),),
+                         ),
+                         hintText: '${snapshot.data![0].memo}',
+                         hintStyle: TextStyle(color: Color(0xFFffffff)),
+                         border: InputBorder.none
+                     ),
                    ),
                  ),
-               ),
-             ],
+               ],
+             ),
            );
          } // 데이터가있으면
        },
@@ -272,8 +282,8 @@ class _ModifyFormState extends State<_ModifyForm> {
 
   }
 
-  //특정 aNo의 데이터 가져오기
-  Future<AddressbookVo> getPersonByNo(int aNo) async {
+  //특정 aNo의 데이터 가져오기 - 리스트
+  Future<List<AddressbookVo>> getPersonByaNo(int aNo) async {
     try {
     /*----요청처리-------------------*/
     //Dio 객체 생성및 설정
@@ -287,8 +297,12 @@ class _ModifyFormState extends State<_ModifyForm> {
       if (response.statusCode == 200) {
         //접속성공 200 이면
         // print(response.data); // json->map 자동변경
-        AddressbookVo infoByaNo = AddressbookVo.fromJson(response.data["apiData"]);
-        return infoByaNo;
+        List<AddressbookVo> mgList = [];
+        for(int i = 0; i<response.data["apiData"].length; i++){
+          AddressbookVo infoByaNo = AddressbookVo.fromJson(response.data["apiData"][i]);
+          mgList.add(infoByaNo);
+        }
+        return mgList;
 
       } else {
       //접속실패 404, 502등등 api서버 문제
@@ -300,30 +314,30 @@ class _ModifyFormState extends State<_ModifyForm> {
     }
   }
 
-  Future<void> getInfoByNo(int aNo) async {
-    try {
-      /*----요청처리-------------------*/
-      //Dio 객체 생성및 설정
-      var dio = Dio();
-      // 헤더설정:json으로 전송
-      dio.options.headers['Content-Type'] = 'application/json';
-      // 서버 요청
-      final response = await dio.put
-      (
-      'http://localhost:9000/api/ysGetVo/${aNo}',
-      );
-      /*----응답처리-------------------*/
-      if (response.statusCode == 200) {
-      //접속성공 200 이면
-      // print(response.data); // json->map 자동변경
-      // return AddressbookVo.fromJson(response.data["apiData"]);
-      } else {
-      //접속실패 404, 502등등 api서버 문제
-      throw Exception('api 서버 문제');
-      }
-    } catch (e) {
-    //예외 발생
-    throw Exception('Failed to load person: $e');
-    }
-  }
+  // Future<void> getInfoByNo(int aNo) async {
+  //   try {
+  //     /*----요청처리-------------------*/
+  //     //Dio 객체 생성및 설정
+  //     var dio = Dio();
+  //     // 헤더설정:json으로 전송
+  //     dio.options.headers['Content-Type'] = 'application/json';
+  //     // 서버 요청
+  //     final response = await dio.put
+  //     (
+  //     'http://localhost:9000/api/ysGetVo/${aNo}',
+  //     );
+  //     /*----응답처리-------------------*/
+  //     if (response.statusCode == 200) {
+  //     //접속성공 200 이면
+  //     // print(response.data); // json->map 자동변경
+  //     // return AddressbookVo.fromJson(response.data["apiData"]);
+  //     } else {
+  //     //접속실패 404, 502등등 api서버 문제
+  //     throw Exception('api 서버 문제');
+  //     }
+  //   } catch (e) {
+  //   //예외 발생
+  //   throw Exception('Failed to load person: $e');
+  //   }
+  // }
 }
