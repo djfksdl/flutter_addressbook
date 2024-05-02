@@ -21,18 +21,26 @@ class ModifyForm extends StatelessWidget {
 //---------------------동적인 내용 설정----------------------------
 //등록
 class _ModifyForm extends StatefulWidget {
-  const _ModifyForm({super.key});
+  final List<int> lastChoiceGNoList;
+  const _ModifyForm({Key? key, this.lastChoiceGNoList = const []})
+      : super(key: key);
+
 
   @override
-  State<_ModifyForm> createState() => _ModifyFormState();
+  // State<_ModifyForm> createState() => _ModifyFormState();
+  State<_ModifyForm> createState() =>
+      _ModifyFormState(lastChoiceGNoList);
+  static final GlobalKey<_ModifyFormState> formKey = GlobalKey<_ModifyFormState>();
 }
 
 //할일
 class _ModifyFormState extends State<_ModifyForm> {
 
   //공통변수-data()같은 개념
-
+  late List<int> lastChoiceGNoList;
   late Future<List<AddressbookVo>> mgListFuture;
+
+  _ModifyFormState(this.lastChoiceGNoList);
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _hpController = TextEditingController();
@@ -60,6 +68,7 @@ class _ModifyFormState extends State<_ModifyForm> {
     print("이거 확인해 이거:!!!!!");
     print(aNo);
 
+
     //aNo데이터를 서버로부터 가져오기 - 초기화에서 불러오면 안됨쓰: aNo를 인식못하니까
     mgListFuture = getPersonByaNo(aNo);
 
@@ -72,7 +81,17 @@ class _ModifyFormState extends State<_ModifyForm> {
           return Center(child: Text('데이터를 불러오는데 실패했습니다.'));
         } else if (!snapshot.hasData) {
           return Center(child: Text('데이터가 없습니다.'));
-        } else { //데이터가 있으면 _nameController.text = snapshot.data!.name;
+        } else {
+
+          _nameController.text = snapshot.data![0].name??"";
+          _hpController.text = snapshot.data![0].hp??"";
+          _emailController.text = snapshot.data![0].email??"";
+          _memoController.text = snapshot.data![0].memo??"";
+          if(snapshot.data![0].gender == 1){
+            _genderController.text = "남자";
+          }else{
+            _genderController.text = "여자";
+          }
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -143,7 +162,7 @@ class _ModifyFormState extends State<_ModifyForm> {
                                 margin: EdgeInsets.only(left: 10),
                                 child: Icon(Icons.wc,color: Color(0xFFffffff),),
                               ),
-                              hintText: '${snapshot.data![0].gender}',
+                              hintText: '${_genderController.text}',
                               hintStyle: TextStyle(color: Color(0xFFbbbbbb)),
                               border: InputBorder.none
                           ),
@@ -167,7 +186,6 @@ class _ModifyFormState extends State<_ModifyForm> {
                           ),
                         ),
                       ),
-
                       Container(
                         height: 60,
                         margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
@@ -180,9 +198,12 @@ class _ModifyFormState extends State<_ModifyForm> {
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             padding: EdgeInsets.only(left:13),
                           ),
-                          onPressed: (){
-                            // print("클릭");
-                            Navigator.pushNamed(context, '/persongroupinsert');
+                          onPressed: ()async {
+                            print("그룸페이지 호출==>값을 받아야 한다");
+                            final result =
+                            await Navigator.pushNamed(context, '/persongroupinsert');
+
+                            lastChoiceGNoList = result as List<int>;
                           },
                           child: Row(
                             children: [
@@ -343,7 +364,9 @@ class _ModifyFormState extends State<_ModifyForm> {
           'name': _nameController.text,
           'hp': _hpController.text,
           'email': _emailController.text,
-          'memo': _memoController.text
+          'memo': _memoController.text,
+          'groupNoList': lastChoiceGNoList
+
         },
       );
       /*----응답처리-------------------*/
