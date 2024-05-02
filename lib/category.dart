@@ -106,6 +106,8 @@ class CategoryPage extends StatelessWidget {
                         IconButton(
                             onPressed: () {
                               print("그룹추가");
+                              TextEditingController _cNameController =
+                                  TextEditingController();
                               showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -122,6 +124,7 @@ class CategoryPage extends StatelessWidget {
                                           children: [
                                             Container(
                                               child: TextField(
+                                                controller: _cNameController,
                                                 style: TextStyle(
                                                     color: Color(0xffffffff)),
                                                 decoration: InputDecoration(
@@ -144,7 +147,15 @@ class CategoryPage extends StatelessWidget {
                                           ),
                                           TextButton(
                                             onPressed: () {
-                                              Navigator.pop(context);
+                                              print("등록");
+                                              String cName =
+                                                  _cNameController.text;
+                                              print(cName);
+                                              Navigator.pushNamed(context, "/category");
+                                              _CategoryPageState()
+                                                  .InsertCategory(cName);
+                                              _CategoryPageState().getCategoryList();
+
                                             },
                                             child: Text(
                                               "등록",
@@ -189,12 +200,14 @@ class _CategoryPage extends StatefulWidget {
 class _CategoryPageState extends State<_CategoryPage> {
   // 공통변수
   late Future<List<AddressbookVo>> categoryListFuture;
+  final TextEditingController _cNameController = TextEditingController();
 
   // 초기화할때
   @override
   void initState() {
     super.initState();
     categoryListFuture = getCategoryList(); // 메소드사용
+
   }
 
   // 그림그릴 때
@@ -276,7 +289,7 @@ class _CategoryPageState extends State<_CategoryPage> {
     );
   }
 
-  //리스트가져오기 dio통신
+  // 리스트가져오기 dio통신
   Future<List<AddressbookVo>> getCategoryList() async {
     try {
       /*----요청처리-------------------*/
@@ -303,6 +316,43 @@ class _CategoryPageState extends State<_CategoryPage> {
         }
 
         return addressList;
+      } else {
+        //접속실패 404, 502등등 api서버 문제
+        throw Exception('api 서버 문제');
+      }
+    } catch (e) {
+      //예외 발생
+      throw Exception('Failed to load address: $e');
+    }
+  }
+
+  // 그룹추가
+  Future<void> InsertCategory(String cName) async {
+    print(cName);
+    try {
+      print("=======================");
+      print(cName);
+      /*----요청처리-------------------*/
+      //Dio 객체 생성 및 설정
+      var dio = Dio();
+      // 헤더설정:json으로 전송
+      dio.options.headers['Content-Type'] = 'application/json';
+      print(cName);
+      // 서버 요청
+      final response = await dio.post(
+        'http://localhost:9099/api/ayInsert',
+        queryParameters: {
+          'cName': cName,
+        },
+      );
+      print("=====================");
+      print(cName);
+      /*----응답처리-------------------*/
+      if (response.statusCode == 200) {
+        //접속성공 200 이면
+        print("접속성공========================");
+        print(cName); // json->map 자동변경
+        // map -> {} Map 을 객체(빈 리스트)로 생성
       } else {
         //접속실패 404, 502등등 api서버 문제
         throw Exception('api 서버 문제');
