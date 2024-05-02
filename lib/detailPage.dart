@@ -27,18 +27,10 @@ class _DetailPageState extends State<_DetailPage> {
 
   //즐겨찾기 추가 삭제 바꾸기
 
-  late bool favorite = false;
+  late bool favorite;
 
-  int ANo=0;
-  void toggleFavorite() {
-    setState(() {
-      favorite = !favorite;
-      print(favorite);
-      print("눌러어아아ㅏㅏㅏㅏㅏㅏㅏㅏ");
-      print(ANo);
-      getFavorite(ANo);
-    });
-  }
+  late int ANo;
+
 
   Widget _buildIconWithLabel() {
     return Container(
@@ -91,7 +83,6 @@ class _DetailPageState extends State<_DetailPage> {
     // 'aNo' 키를 사용하여 값을 추출합니다.
     late final aNo = args['aNo'];
 
-    ANo = aNo;
 
     //aNo 데이터를 서버로 부터 가져오기
     detailPageFuture = getPersonDetail(aNo);
@@ -319,7 +310,16 @@ class _DetailPageState extends State<_DetailPage> {
                 items: <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                     icon: GestureDetector(
-                      onTap: toggleFavorite,
+                      onTap: (){
+
+                        setState(() {
+                          favorite = !favorite;
+                          print("눌러어아아ㅏㅏㅏㅏㅏㅏㅏㅏ");
+                          print(ANo);
+                          getFavorite(ANo);
+                          getPersonDetail(ANo);
+                        } as VoidCallback);
+                      },
                       child: _buildIconWithLabel(),
                     ),
                   label: '',
@@ -430,12 +430,14 @@ class _DetailPageState extends State<_DetailPage> {
         //접속성공 200 이면
         //print(response.data); // json->map 자동변경
 
-        AddressbookVo detailVo =
-            AddressbookVo.fromJson(response.data["apiData"]);
+        ;
+        print(response.data["apiData"]["favorite"]);
 
+        favorite = response.data["apiData"]["favorite"];
+        ANo = response.data["apiData"]["aNo"];
         print("===");
 
-        return detailVo;
+        return AddressbookVo.fromJson(response.data["apiData"]);
       } else {
         //접속실패 404, 502등등 api서버 문제
         throw Exception('api 서버 문제');
@@ -491,19 +493,7 @@ class _DetailPageState extends State<_DetailPage> {
     print(ANo);
     print(favorite);
     print("-----------------------------------------------------------");
-    if(favorite ==true){
-      Favorite = 1;
-      print("즐겨찾기추가");
-      print(Favorite);
-      print("==============");
 
-    }else{
-      Favorite =0;
-      print("즐겨찾기해제");
-      print(Favorite);
-      print("==============");
-
-    }
 
     try {
       var dio = Dio();
@@ -514,12 +504,12 @@ class _DetailPageState extends State<_DetailPage> {
 
         data: {
           'aNo' : ANo,
-          'favorite': Favorite,
+          'favorite': favorite,
         }
       );
 
       if (response.statusCode == 200) {
-        print(response.data); // json->map 자동변경
+        print(response.data["apiData"]); // json->map 자동변경
         return AddressbookVo.fromJson(response.data["apiData"]);
 
       } else {
