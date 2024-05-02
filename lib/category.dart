@@ -7,6 +7,9 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    _CategoryPageState _categoryPageState = _CategoryPageState();
+
     return Scaffold(
         backgroundColor: Color(0xFF0F0E36),
         // appBar: AppBar(),
@@ -29,55 +32,73 @@ class CategoryPage extends StatelessWidget {
                         titlePadding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                         title: isExpanded
                             ? Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    color: Color(0xFF0F0E36),
-                                    margin: EdgeInsets.fromLTRB(0, 70, 0, 10),
-                                    child: Text(
-                                      "그룹",
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              color: Color(0xFF0F0E36),
+                              margin: EdgeInsets.fromLTRB(0, 70, 0, 10),
+                              child: Text(
+                                "그룹",
+                                style: TextStyle(
+                                  color: Color(0xFFffffff),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              child: FutureBuilder<List<AddressbookVo>>(
+                                future: _categoryPageState.getCategoryList(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  } else if (snapshot.hasError) {
+                                    return Center(
+                                        child: Text(
+                                            '데이터를 불러오는 데 실패했습니다.'));
+                                  } else if (!snapshot.hasData ||
+                                      snapshot.data!.isEmpty) {
+                                    return Center(
+                                        child: Text('데이터가 없습니다.'));
+                                  } else {
+                                    return Text(
+                                      "저장된 연락처 ${snapshot.data!.length}개",
                                       style: TextStyle(
-                                        color: Color(0xFFffffff),
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      "저장된 연락처 38개",
-                                      style: TextStyle(
-                                        // color: Color(0xFFffffff),
                                         fontSize: 10,
                                       ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        )
+                            : Expanded(
+                          child: Container(
+                            color: Color(0xff0F0E36),
+                            child: Container(
+                              color: Color(0xFF0F0E36),
+                              // padding: EdgeInsets.zero,
+                              margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("그룹추가"),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.edit,
+                                      color: Color(0xFF81D1FB),
                                     ),
                                   ),
                                 ],
-                              )
-                            : Expanded(
-                                child: Container(
-                                  color: Color(0xff0F0E36),
-                                  child: Container(
-                                    color: Color(0xFF0F0E36),
-                                    // padding: EdgeInsets.zero,
-                                    margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("그룹추가"),
-                                        IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(
-                                            Icons.edit,
-                                            color: Color(0xFF81D1FB),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
                               ),
+                            ),
+                          ),
+                        ),
                         background: Container(
                           color: Color(0xFF0F0E36),
                         ),
@@ -107,7 +128,7 @@ class CategoryPage extends StatelessWidget {
                             onPressed: () {
                               print("그룹추가");
                               TextEditingController _cNameController =
-                                  TextEditingController();
+                              TextEditingController();
                               showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -311,7 +332,7 @@ class _CategoryPageState extends State<_CategoryPage> {
 
         for (int i = 0; i < response.data["apiData"].length; i++) {
           AddressbookVo addressbookVo =
-              AddressbookVo.fromJson(response.data["apiData"][i]);
+          AddressbookVo.fromJson(response.data["apiData"][i]);
           addressList.add(addressbookVo);
         }
 

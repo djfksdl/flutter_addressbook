@@ -99,7 +99,7 @@ class _GroupListPageState extends State<_GroupListPage> {
                   alignment: Alignment.center,
                   width: 460,
                   child: Text(
-                    "저장된 연락처 38개",
+                    "지정된 연락처 ${snapshot.data!.length}개",
                     style: TextStyle(
                       color: Color(0xFFffffff),
                       fontSize: 20,
