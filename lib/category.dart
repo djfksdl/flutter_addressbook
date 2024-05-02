@@ -115,15 +115,9 @@ class CategoryPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Container(
-                          child: Text(
-                            "ㄱ",
-                            style: TextStyle(
-                                color: Color(0xFF5158F0), fontSize: 20),
-                          ),
-                        ),
+
                         IconButton(
                             onPressed: () {
                               print("그룹추가");

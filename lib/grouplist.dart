@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_addressbook/addressbookVo.dart';
 
@@ -40,7 +41,8 @@ class _GroupListPage extends StatefulWidget {
 class _GroupListPageState extends State<_GroupListPage> {
   // 변수 (미래의 데이터가 담김)
   late Future<List<AddressbookVo>> addressbookVoFuture;
-  late String cName="";
+  late String cName = "";
+  String? inputText;
 
   // 초기화 함수 (1번만 실행됨)
   @override
@@ -54,12 +56,8 @@ class _GroupListPageState extends State<_GroupListPage> {
     // 라우터로 전달받은 cNo
     late final args = ModalRoute.of(context)!.settings.arguments as Map;
 
-
-
     // 'cNo'키를 사용하여 값을 추출
     final cNo = args['cNo'];
-
-
 
     // 필요시 추가 코드  //데이터 불러오기 메소드 호출
     addressbookVoFuture = getCategoryByNo(cNo);
@@ -83,26 +81,43 @@ class _GroupListPageState extends State<_GroupListPage> {
             padding: EdgeInsets.all(30),
             child: Column(
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: Text(
-                    "${cName}",
-                    style: TextStyle(
-                      color: Color(0xFFffffff),
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.fromLTRB(30, 10, 0, 10),
+                      child: Text(
+                        "${cName}",
+                        style: TextStyle(
+                          color: Color(0xFFffffff),
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                  ),
+                    IconButton(
+                      onPressed: () {
+                        print("그룹편집버튼클릭");
+                        Navigator.pushNamed(context, '/groupeditform',
+                            arguments: {"cNo": cNo});
+                      },
+                      icon: Icon(
+                        Icons.edit,
+                        size: 20,
+                        color: Color(0xFF81D1FB),
+                      ),
+                    ),
+                  ],
                 ),
                 Container(
                   alignment: Alignment.center,
                   width: 460,
                   child: Text(
-                    "지정된 연락처 ${snapshot.data!.length}개",
+                    "총 연락처 ${snapshot.data!.length}개",
                     style: TextStyle(
                       color: Color(0xFFffffff),
-                      fontSize: 20,
+                      fontSize: 15,
                     ),
                   ),
                 ),
@@ -110,26 +125,30 @@ class _GroupListPageState extends State<_GroupListPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      child: Text(
-                        "ㄱ",
-                        style: TextStyle(
-                          color: Color(0xFF5158F0),
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        print("그룹편집버튼클릭");
-                        Navigator.pushNamed(
-                          context,
-                          '/groupeditform',
-                           arguments: {"cNo": cNo}
-                        );
-                      },
-                      icon: Icon(
-                        Icons.edit,
-                        color: Color(0xFF81D1FB),
+                      width: 360,
+                      height: 45,
+                      // margin: EdgeInsets.fromLTRB(15,0,0,0),
+                      padding: const EdgeInsets.all(5.0),
+                      child: SearchBar(
+                        backgroundColor:
+                            MaterialStatePropertyAll(Color(0xFF161443)),
+                        trailing: [
+                          IconButton(
+                            onPressed: () {
+                              print("검색");
+                              print(inputText);
+                            },
+                            icon: Icon(Icons.search),
+                          )
+                        ],
+                        shape: MaterialStateProperty.all(
+                            ContinuousRectangleBorder(
+                                borderRadius: BorderRadius.circular(0))),
+                        textStyle: MaterialStateProperty.all(
+                            TextStyle(color: Color(0xffffffff))),
+                        hintText: "검색",
+
+
                       ),
                     ),
                   ],
@@ -163,8 +182,7 @@ class _GroupListPageState extends State<_GroupListPage> {
                                 Navigator.pushNamed(context, '/detailpage',
                                     arguments: {
                                       "aNo": snapshot.data![index].aNo
-                                    }
-                                );
+                                    });
                               },
                               child: Row(
                                 children: [
@@ -223,11 +241,11 @@ class _GroupListPageState extends State<_GroupListPage> {
         for (int i = 0; i < response.data["apiData"].length; i++) {
           print("==================");
           AddressbookVo addressbookVo =
-          AddressbookVo.fromJson(response.data["apiData"][i]);
+              AddressbookVo.fromJson(response.data["apiData"][i]);
           addressList.add(addressbookVo);
         }
         // 데이터가 없으면 그룹명안나옴.
-        cName=addressList[0].cName!;
+        cName = addressList[0].cName!;
         print(cName);
 
         return addressList;
