@@ -48,6 +48,7 @@ class _PersonInsertFormState extends State<_PersonInsertForm> {
     return Column(
       children: [
         Container(
+          height: 830,
           color: Color(0xFF0F0E36),
           padding: EdgeInsets.fromLTRB(40, 40, 30, 20),
           child: Column(
