@@ -81,129 +81,132 @@ class _GroupListPageState extends State<_GroupListPage> {
         } else if (!snapshot.hasData) {
           return Center(child: Text('데이터가 없습니다.'));
         } else {
-          return Container(
-            padding: EdgeInsets.all(30),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Text(
-                        "${cName}",
-                        style: TextStyle(
-                          color: Color(0xFFffffff),
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
+          return SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
+            child: Container(
+              padding: EdgeInsets.all(30),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Text(
+                          "${cName}",
+                          style: TextStyle(
+                            color: Color(0xFFffffff),
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  width: 460,
-                  child: Text(
-                    "총 연락처 ${snapshot.data!.length}개",
-                    style: TextStyle(
-                      color: Color(0xFFffffff),
-                      fontSize: 15,
+                    ],
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    width: 460,
+                    child: Text(
+                      "총 연락처 ${snapshot.data!.length}개",
+                      style: TextStyle(
+                        color: Color(0xFFffffff),
+                        fontSize: 15,
+                      ),
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      child: IconButton(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        child: IconButton(
+                          onPressed: () {
+                            print("검색페이지이동");
+                          },
+                          icon: Icon(
+                            Icons.search,
+                            size: 20,
+                            color: Color(0xFF81D1FB),
+                          ),
+                        ),
+                      ),
+                      IconButton(
                         onPressed: () {
-                          print("검색페이지이동");
+                          print("그룹편집버튼클릭");
+                          Navigator.pushNamed(context, '/groupeditform',
+                              arguments: {"cNo": cNo});
                         },
                         icon: Icon(
-                          Icons.search,
+                          Icons.edit,
                           size: 20,
                           color: Color(0xFF81D1FB),
                         ),
                       ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        print("그룹편집버튼클릭");
-                        Navigator.pushNamed(context, '/groupeditform',
-                            arguments: {"cNo": cNo});
-                      },
-                      icon: Icon(
-                        Icons.edit,
-                        size: 20,
-                        color: Color(0xFF81D1FB),
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color(0xFF161443),
+                    ],
                   ),
-                  width: 430,
-                  child: ListView.builder(
-                    itemExtent: 90,
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: Color(0xFF26295E),
-                                  width: 1.0,
+                  Container(
+                    padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Color(0xFF161443),
+                    ),
+                    width: 430,
+                    child: ListView.builder(
+                      itemExtent: 90,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Color(0xFF26295E),
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
+                              margin: EdgeInsets.only(bottom: 20),
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/detailpage',
+                                      arguments: {
+                                        "aNo": snapshot.data![index].aNo
+                                      });
+                                },
+                                child: Row(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(70),
+                                      child: Image.asset(
+                                        'assets/images/girl.png',
+                                        width: 50,
+                                        height: 50,
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                      child: Text(
+                                        "${snapshot.data![index].name}",
+                                        style: TextStyle(
+                                          color: Color(0xFFffffff),
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                            margin: EdgeInsets.only(bottom: 20),
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/detailpage',
-                                    arguments: {
-                                      "aNo": snapshot.data![index].aNo
-                                    });
-                              },
-                              child: Row(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(70),
-                                    child: Image.asset(
-                                      'assets/images/girl.png',
-                                      width: 50,
-                                      height: 50,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                    child: Text(
-                                      "${snapshot.data![index].name}",
-                                      style: TextStyle(
-                                        color: Color(0xFFffffff),
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                    shrinkWrap: true,
+                          ],
+                        );
+                      },
+                      shrinkWrap: true,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         }
