@@ -226,7 +226,8 @@ class _ModifyFormState extends State<_ModifyForm> {
                                         color: Color(0xFFffffff)
                                       ), ),
                                     );
-                                  }).toList(),
+                                  }
+                                  ).toList(),
                                 ),
                               )
                             ],

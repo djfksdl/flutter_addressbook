@@ -55,4 +55,9 @@ class AddressbookVo {
       'cName': cName,
     };
   }
+
+  @override
+  String toString() {
+    return 'AddressbookVo{aNo: $aNo, cNo: $cNo, acNo: $acNo, name: $name, hp: $hp, gender: $gender, email: $email, memo: $memo, favorite: $favorite, cName: $cName}';
+  }
 }
